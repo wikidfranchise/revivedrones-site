@@ -3,141 +3,133 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Revive Drones + T-Mobile</title>
+  <meta name="description" content="Revive Drones delivers emergency Narcan doses to overdose zones in real-time." />
+  <title>Revive Drones</title>
   <style>
     body {
       margin: 0;
       font-family: "Segoe UI", sans-serif;
-      background: #f4f4f4;
-      color: #333;
-    }
-
-    .hero-header {
-      width: 575px;
-      margin: 0 auto;
-      text-align: center;
-      padding: 2rem 0 1rem 0;
-      color: white;
-    }
-
-    .hero-header h1 {
-      margin: 0;
-      font-size: 2.5rem;
+      background: #0c0c0c;
+      color: #f9f9f9;
     }
 
     header {
-      background: #e20074;
+      background: linear-gradient(to right, #00ffcc, #00665c);
+      padding: 4rem 2rem 2rem 2rem;
+      text-align: center;
+      color: #000;
     }
 
-    .section {
-      padding: 2rem;
-      max-width: 1000px;
-      margin: auto;
+    header h1 {
+      font-size: 3rem;
+      margin: 0;
     }
 
-    .section::after {
-      content: "";
-      display: table;
-      clear: both;
+    header p {
+      font-size: 1.25rem;
+      margin-top: 0.5rem;
+      font-weight: 500;
     }
 
-    .section h2 {
-      color: #e20074;
-    }
-
-    .drone-box {
-      float: left;
-      width: 575px;
-      margin: -60px 2rem 2rem -175px;
-      box-shadow: 12px 12px 0 rgba(226, 0, 116, 0.15);
-      border-radius: 8px;
+    .hero-image {
+      background: url('https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+      height: 300px;
       position: relative;
-      z-index: 1;
     }
 
-    .drone-box img {
-      width: 100%;
-      display: block;
-      border-radius: 8px;
+    .hero-image::after {
+      content: "Real-Time Narcan Response from the Sky";
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      color: white;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1rem;
+      font-size: 1.5rem;
+      border-left: 5px solid #00ffcc;
     }
 
-    .logos {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2rem;
+    section {
+      padding: 2rem;
+      max-width: 960px;
+      margin: auto;
+      line-height: 1.6;
+    }
+
+    h2 {
+      color: #00ffcc;
+      margin-top: 2.5rem;
+    }
+
+    .info {
+      margin-top: 1rem;
+    }
+
+    .impact-banner {
+      background: #222;
+      border-left: 6px solid #00ffcc;
+      padding: 1rem;
+      font-size: 1.2rem;
       margin-top: 2rem;
-      flex-wrap: wrap;
+      font-weight: 500;
     }
 
-    .logos img {
-      height: 80px;
-      max-width: 100%;
-      object-fit: contain;
+    .contact-box {
+      background: #1a1a1a;
+      padding: 2rem;
+      border: 1px solid #444;
+      margin-top: 3rem;
     }
 
     footer {
-      background: #222;
-      color: #aaa;
+      background: #111;
       text-align: center;
       padding: 1rem;
+      color: #777;
       font-size: 0.9rem;
-    }
-
-    @media (max-width: 768px) {
-      .drone-box {
-        float: none;
-        width: 100%;
-        margin: 0 0 2rem 0;
-      }
-
-      .hero-header {
-        width: 100%;
-        padding: 2rem 1rem;
-      }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="hero-header">
-      <h1>Revive Drones</h1>
-      <p>Powered by Innovation. Delivered by T-Mobile.</p>
-    </div>
+    <h1>Revive Drones</h1>
+    <p>Saving Lives from Above</p>
   </header>
 
-  <section class="section">
-    <div class="drone-box">
-      <img src="./tmobilerevivebigdrone.png" alt="Revive Drone Emergency Drop">
+  <div class="hero-image"></div>
+
+  <section>
+    <p class="info">
+      <strong>Revive Drones</strong> deploys autonomous and semi-autonomous drones equipped with <strong>Narcan (naloxone)</strong> to opioid overdose events — in real time. Our system bridges the critical time gap between 911 calls and first responder arrivals.
+    </p>
+
+    <div class="impact-banner">
+      Every second counts — our drones can reach scenes in under 3 minutes.
     </div>
 
-    <h2>About the Program</h2>
+    <h2>How It Works</h2>
+    <ul>
+      <li>Overdose reported by witness or EMS alert system</li>
+      <li>Drone launched with payload of Narcan (4mg spray)</li>
+      <li>Drone hovers above GPS-confirmed target and drops aid</li>
+      <li>Optional voice assist and video verification via onboard AI</li>
+    </ul>
+
+    <h2>Our Mission</h2>
     <p>
-      Revive Drones is a life-saving emergency drone delivery system designed to respond to opioid overdoses with Narcan deployment in real time. By texting a simple shortcode, witnesses or first responders can summon a drone to deliver the antidote within minutes. Drones can be autonomous and/or manned, depending on event.
+      With overdoses rising in urban, rural, and underserved areas, Revive Drones is committed to delivering life-saving treatments where traditional emergency response may fall short.
     </p>
 
-    <h2>Shortcode Activation</h2>
-    <p>
-      Users text <strong>63911</strong> <strong>"OD911"</strong> — triggering immediate dispatch of a Narcan-equipped drone to the location. Drones can hover to assist as needed.
-    </p>
-
-    <p style="text-align: center; font-weight: 500; margin-top: 2rem;">
-      Future payloads will include EpiPens, insulin, and AEDs for rapid crisis response.
-    </p>
-
-    <h2>Why T-Mobile?</h2>
-    <p>
-      T-Mobile’s advanced 5G network and bold public health stance make it the ideal partner to deliver connectivity and brand power to Revive. Our EVP of Communications, Sarah Rodgers—formerly of T-Mobile—brings insider experience and insight, making this partnership our first and only call.
-    </p>
-
-    <div class="logos">
-      <img src="./TMOBILE.jpg" alt="T-Mobile Logo">
-      <img src="./revivedrones.png" alt="Revive Drones Logo">
+    <div class="contact-box">
+      <h2>Contact Us</h2>
+      <p><strong>Email:</strong> john@revivedrones.org</p>
+      <p><strong>Phone:</strong> 949-372-8413</p>
+      <p><strong>Web:</strong> www.revivedrones.com</p>
     </div>
   </section>
 
   <footer>
-    &copy; 2025 Revive Drones. All rights reserved.
+    &copy; 2025 Revive Drones. Aerial Emergency Response Reimagined.
   </footer>
 </body>
 </html>
