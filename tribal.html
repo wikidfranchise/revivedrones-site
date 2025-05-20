@@ -8,157 +8,138 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f4f7f6; /* Light gray background */
-            color: #333; /* Dark gray text */
+            background: #f4f7f6;
+            color: #333;
             margin: 0;
-            padding: 20px; /* Add some padding around the content */
+            padding: 20px;
             display: flex;
-            justify-content: center; /* Center content horizontally */
-            align-items: flex-start; /* Align content to the top */
-            min-height: 100vh; /* Minimum height of the viewport */
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
         }
-
         .form-container {
-            background-color: #fff; /* White background for the form container */
-            padding: 2rem; /* Padding inside the container */
-            border-radius: 8px; /* Rounded corners */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-            width: 100%; /* Full width up to max-width */
-            max-width: 500px; /* Maximum width for the form */
-            box-sizing: border-box; /* Include padding and border in element's total width */
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
         }
-
         .form-container h1 {
             text-align: center;
-            color: #000; /* Black heading */
+            color: #000;
             margin-top: 0;
             margin-bottom: 1.5rem;
-            font-size: 1.8rem; /* Slightly larger heading */
+            font-size: 1.8rem;
         }
-
         .form-container p {
-             text-align: center;
-             margin-bottom: 1.5rem;
-             color: #555; /* Slightly lighter text for description */
-             font-size: 0.95rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #555;
+            font-size: 0.95rem;
         }
-
         .form-group {
-            margin-bottom: 1rem; /* Space between form groups */
+            margin-bottom: 1rem;
         }
-
         .form-group label {
-            display: block; /* Label on its own line */
-            margin-bottom: 0.5rem; /* Space between label and input */
+            display: block;
+            margin-bottom: 0.5rem;
             font-weight: bold;
-            color: #333; /* Dark gray label text */
-            font-size: 0.9rem;
-        }
-
-        .form-group input[type="text"],
-        .form-group input[type="email"] {
-            width: calc(100% - 18px); /* Adjust for padding and border */
-            padding: 10px; /* Larger padding */
-            border: 1px solid #ccc; /* Light gray border */
-            border-radius: 4px; /* Rounded input corners */
-            box-sizing: border-box; /* Include padding and border in element's total width and height */
-            font-size: 1rem; /* Standard font size */
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: flex-start; /* Align items to the top */
-            margin-bottom: 1.5rem; /* More space below checkbox */
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            margin-top: 5px; /* Align checkbox better with text */
-            margin-right: 8px; /* Space between checkbox and label */
-        }
-
-        .checkbox-group label {
-            font-weight: normal; /* Less bold for checkbox label */
             color: #333;
             font-size: 0.9rem;
         }
-
+        .form-group input[type="text"],
+        .form-group input[type="email"] {
+            width: calc(100% - 18px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        .checkbox-group input[type="checkbox"] {
+            margin-top: 5px;
+            margin-right: 8px;
+        }
+        .checkbox-group label {
+            font-weight: normal;
+            color: #333;
+            font-size: 0.9rem;
+        }
         .form-container button {
-            display: block; /* Button on its own line */
-            width: 100%; /* Full width button */
-            padding: 12px; /* Larger padding for button */
-            background-color: #007bff; /* Blue button */
-            color: white; /* White text */
-            border: none; /* No border */
-            border-radius: 4px; /* Rounded button corners */
-            font-size: 1.1rem; /* Larger font size for button */
-            cursor: pointer; /* Indicate clickable */
-            transition: background-color 0.3s ease; /* Smooth hover effect */
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
-
         .form-container button:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #0056b3;
         }
-
         .form-container small {
-            display: block; /* Small text on its own line */
-            margin-top: 0.5rem; /* Space above small text */
-            font-size: 0.8rem; /* Smaller font size */
-            color: #555; /* Gray text */
-            text-align: center; /* Center small text */
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #555;
+            text-align: center;
         }
-
-         .disclaimer {
-             text-align: center;
-             margin-top: 1.5rem;
-             font-size: 0.75rem; /* Even smaller disclaimer text */
-             color: #777; /* Lighter gray for disclaimer */
-         }
-
-         /* Optional: Style for a success message after submission */
-         .success-message {
-             text-align: center;
-             color: green;
-             font-weight: bold;
-             margin-top: 1.5rem;
-         }
-
+        .disclaimer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            color: #777;
+        }
+        .success-message {
+            text-align: center;
+            color: green;
+            font-weight: bold;
+            margin-top: 1.5rem;
+        }
     </style>
 </head>
 <body>
-
     <div class="form-container">
-
         <h1>Bring a Life-Saving Network to Your Tribe</h1>
-
         <p>
             Thank you for your interest in deploying a Revive Drones Network to enhance emergency response for opioid overdoses in your community. Your commitment helps us prioritize and expedite deployment efforts. Please provide the following brief information:
         </p>
-
-        <form name="tribal-interest" method="POST" data-netlify="true">
+        <form action="https://formsubmit.co/wikidfranchise@gmail.com" method="POST">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="box">
+  <input type="hidden" name="_subject" value="New Tribal Interest Submission">
+  <input type="hidden" name="_next" value="thank-you.html">
+  <input type="hidden" name="form-name" value="tribal-interest">
+  <p hidden><label>Don’t fill this out: <input name="bot-field" /></label></p>
             <input type="hidden" name="form-name" value="tribal-interest">
-
             <div class="form-group">
                 <label for="tribalNationName">Tribal Nation Name:</label>
                 <input type="text" id="tribalNationName" name="tribalNationName" required>
             </div>
-
             <div class="form-group">
                 <label for="contactName">Primary Contact Name:</label>
                 <input type="text" id="contactName" name="contactName" required>
             </div>
-
-             <div class="form-group">
+            <div class="form-group">
                 <label for="contactEmail">Primary Contact Email:</label>
                 <input type="email" id="contactEmail" name="contactEmail" required>
             </div>
-
             <div class="checkbox-group">
                 <input type="checkbox" id="confirmInterest" name="confirmInterest" value="Yes" required>
                 <label for="confirmInterest">
                     Yes, our Tribal Nation is interested in exploring the deployment of a Revive Drones Network on our lands, potentially utilizing opioid settlement funds for this purpose.
                 </label>
             </div>
-
             <div class="form-group">
                 <label for="digitalSignature">Digital Commitment (Type Your Name):</label>
                 <input type="text" id="digitalSignature" name="digitalSignature" required>
@@ -166,21 +147,14 @@
                     By typing your name above, you acknowledge that you are an authorized representative of the Tribal Nation named and that this submission serves as a formal expression of interest and commitment to engage in further discussions with Revive Drones.
                 </small>
             </div>
-
             <div>
-                <button type="submit">
-                    SUBMIT COMMITMENT
-                </button>
+                <button type="submit">SUBMIT COMMITMENT</button>
             </div>
         </form>
-
         <p class="disclaimer">
             *This form is an expression of interest and commitment to engage in further discussions regarding the deployment of a Revive Drones Network. It is not a binding contract or agreement for services. Specific terms, conditions, and deployment schedules will be determined through subsequent formal agreements.
         </p>
-
         <div data-netlify-success-message></div>
-
     </div>
-
 </body>
 </html>
