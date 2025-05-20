@@ -1,160 +1,182 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Express interest in deploying a Revive Drones network on your tribal lands.">
-    <title>Revive Drones Tribal Interest Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7f6;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Express interest in deploying a Revive Drones network on your tribal lands." />
+  <title>Revive Drones Tribal Interest Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7f6;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    .form-container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+      box-sizing: border-box;
+    }
+    .form-container h1 {
+      text-align: center;
+      color: #000;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+    }
+    .form-container p {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #555;
+      font-size: 0.95rem;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #333;
+      font-size: 0.9rem;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="email"] {
+      width: calc(100% - 18px);
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+    .checkbox-group input[type="checkbox"] {
+      margin-top: 5px;
+      margin-right: 8px;
+    }
+    .checkbox-group label {
+      font-weight: normal;
+      color: #333;
+      font-size: 0.9rem;
+    }
+    .form-container button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .form-container button:hover {
+      background-color: #0056b3;
+    }
+    .form-container small {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: #555;
+      text-align: center;
+    }
+    .disclaimer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: #777;
+    }
+    .success-message {
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-top: 1.5rem;
+    }
+  </style>
+  <script>
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const form = event.target;
+      const data = new FormData(form);
+      fetch("https://formsubmit.co/ajax/wikidfranchise@gmail.com", {
+        method: "POST",
+        body: data,
+        headers: {
+          'Accept': 'application/json'
         }
-        .form-container {
-            background-color: #fff;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
-            box-sizing: border-box;
-        }
-        .form-container h1 {
-            text-align: center;
-            color: #000;
-            margin-top: 0;
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem;
-        }
-        .form-container p {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: #555;
-            font-size: 0.95rem;
-        }
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: #333;
-            font-size: 0.9rem;
-        }
-        .form-group input[type="text"],
-        .form-group input[type="email"] {
-            width: calc(100% - 18px);
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 1rem;
-        }
-        .checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 1.5rem;
-        }
-        .checkbox-group input[type="checkbox"] {
-            margin-top: 5px;
-            margin-right: 8px;
-        }
-        .checkbox-group label {
-            font-weight: normal;
-            color: #333;
-            font-size: 0.9rem;
-        }
-        .form-container button {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .form-container button:hover {
-            background-color: #0056b3;
-        }
-        .form-container small {
-            display: block;
-            margin-top: 0.5rem;
-            font-size: 0.8rem;
-            color: #555;
-            text-align: center;
-        }
-        .disclaimer {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.75rem;
-            color: #777;
-        }
-        .success-message {
-            text-align: center;
-            color: green;
-            font-weight: bold;
-            margin-top: 1.5rem;
-        }
-    </style>
+      }).then(() => {
+        form.reset();
+        window.location.href = "index.html";
+      }).catch(error => {
+        alert("Submission failed. Please try again.");
+        console.error(error);
+      });
+    }
+  </script>
 </head>
 <body>
-    <div class="form-container">
-        <h1>Bring a Life-Saving Network to Your Tribe</h1>
-        <p>
-            Thank you for your interest in deploying a Revive Drones Network to enhance emergency response for opioid overdoses in your community. Your commitment helps us prioritize and expedite deployment efforts. Please provide the following brief information:
-        </p>
-        <form action="https://formsubmit.co/wikidfranchise@gmail.com" method="POST">
-  <input type="hidden" name="_captcha" value="false">
-  <input type="hidden" name="_template" value="box">
-  <input type="hidden" name="_subject" value="New Tribal Interest Submission">
-  <input type="hidden" name="_next" value="thank-you.html">
-  <input type="hidden" name="form-name" value="tribal-interest">
-  <p hidden><label>Don’t fill this out: <input name="bot-field" /></label></p>
-            <input type="hidden" name="form-name" value="tribal-interest">
-            <div class="form-group">
-                <label for="tribalNationName">Tribal Nation Name:</label>
-                <input type="text" id="tribalNationName" name="tribalNationName" required>
-            </div>
-            <div class="form-group">
-                <label for="contactName">Primary Contact Name:</label>
-                <input type="text" id="contactName" name="contactName" required>
-            </div>
-            <div class="form-group">
-                <label for="contactEmail">Primary Contact Email:</label>
-                <input type="email" id="contactEmail" name="contactEmail" required>
-            </div>
-            <div class="checkbox-group">
-                <input type="checkbox" id="confirmInterest" name="confirmInterest" value="Yes" required>
-                <label for="confirmInterest">
-                    Yes, our Tribal Nation is interested in exploring the deployment of a Revive Drones Network on our lands, potentially utilizing opioid settlement funds for this purpose.
-                </label>
-            </div>
-            <div class="form-group">
-                <label for="digitalSignature">Digital Commitment (Type Your Name):</label>
-                <input type="text" id="digitalSignature" name="digitalSignature" required>
-                <small>
-                    By typing your name above, you acknowledge that you are an authorized representative of the Tribal Nation named and that this submission serves as a formal expression of interest and commitment to engage in further discussions with Revive Drones.
-                </small>
-            </div>
-            <div>
-                <button type="submit">SUBMIT COMMITMENT</button>
-            </div>
-        </form>
-        <p class="disclaimer">
-            *This form is an expression of interest and commitment to engage in further discussions regarding the deployment of a Revive Drones Network. It is not a binding contract or agreement for services. Specific terms, conditions, and deployment schedules will be determined through subsequent formal agreements.
-        </p>
-        <div data-netlify-success-message></div>
-    </div>
+  <div class="form-container">
+    <h1>Bring a Life-Saving Network to Your Tribe</h1>
+    <p>
+      Thank you for your interest in deploying a Revive Drones Network to enhance emergency response for opioid overdoses in your community.
+    </p>
+    <form onsubmit="handleFormSubmit(event)">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="Tribal Interest Form Submission">
+
+      <div class="form-group">
+        <label for="tribalNationName">Tribal Nation Name:</label>
+        <input type="text" id="tribalNationName" name="Tribal Nation Name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="contactName">Primary Contact Name:</label>
+        <input type="text" id="contactName" name="Primary Contact Name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="contactEmail">Primary Contact Email:</label>
+        <input type="email" id="contactEmail" name="Primary Contact Email" required>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="confirmInterest" name="Confirm Interest" value="Yes" required>
+        <label for="confirmInterest">
+          Yes, our Tribal Nation is interested in exploring the deployment of a Revive Drones Network on our lands.
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label for="digitalSignature">Digital Commitment (Type Your Name):</label>
+        <input type="text" id="digitalSignature" name="Digital Signature" required>
+        <small>
+          By typing your name above, you acknowledge that you are an authorized representative of the Tribal Nation named.
+        </small>
+      </div>
+
+      <div>
+        <button type="submit">SUBMIT COMMITMENT</button>
+      </div>
+    </form>
+
+    <p class="disclaimer">
+      *This form is an expression of interest and commitment to engage in further discussions regarding the deployment of a Revive Drones Network.
+    </p>
+  </div>
 </body>
 </html>
