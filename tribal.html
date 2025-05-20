@@ -101,33 +101,7 @@
       font-size: 0.75rem;
       color: #777;
     }
-    .success-message {
-      text-align: center;
-      color: green;
-      font-weight: bold;
-      margin-top: 1.5rem;
-    }
   </style>
-  <script>
-    function handleFormSubmit(event) {
-      event.preventDefault();
-      const form = event.target;
-      const data = new FormData(form);
-      fetch("https://formsubmit.co/ajax/wikidfranchise@gmail.com", {
-        method: "POST",
-        body: data,
-        headers: {
-          'Accept': 'application/json'
-        }
-      }).then(() => {
-        form.reset();
-        window.location.href = "index.html";
-      }).catch(error => {
-        alert("Submission failed. Please try again.");
-        console.error(error);
-      });
-    }
-  </script>
 </head>
 <body>
   <div class="form-container">
@@ -135,9 +109,10 @@
     <p>
       Thank you for your interest in deploying a Revive Drones Network to enhance emergency response for opioid overdoses in your community.
     </p>
-    <form onsubmit="handleFormSubmit(event)">
+    <form action="https://formsubmit.co/wikidfranchise@gmail.com" method="POST">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_subject" value="Tribal Interest Form Submission">
+      <input type="hidden" name="_next" value="https://revivedrones.com/index.html">
 
       <div class="form-group">
         <label for="tribalNationName">Tribal Nation Name:</label>
