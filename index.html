@@ -1,91 +1,200 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Revive Drones&trade; delivers emergency nasal spray to overdose zones in real time.">
-  <title>Revive Drones&trade;</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Revive Drones + T-Mobile</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #fff;
       margin: 0;
-      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #f4f4f4;
+      color: #333;
     }
-    header {
-      background: #000;
-      color: #fff;
-      padding: 2rem;
+
+    .hero-header {
+      width: 575px;
+      margin: 0 auto;
       text-align: center;
+      padding: 2rem 0 1rem 0;
+      color: white;
     }
-    header h1 {
+
+    .hero-header h1 {
       margin: 0;
       font-size: 2.5rem;
     }
-    main {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+
+    header {
+      background: #e20074;
+    }
+
+    .section {
       padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
     }
-    .image-section {
-      flex: 1;
-      min-width: 350px;
-      max-width: 500px;
-      margin: 1rem;
+
+    .section::after {
+      content: "";
+      display: table;
+      clear: both;
     }
-    .image-section img {
+
+    .section h2 {
+      color: #e20074;
+    }
+
+    .drone-box {
+      float: left;
+      width: 575px;
+      margin: -60px 2rem 2rem -175px;
+      box-shadow: 12px 12px 0 rgba(226, 0, 116, 0.15);
+      border-radius: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .drone-box img {
       width: 100%;
-      height: auto;
+      display: block;
       border-radius: 8px;
     }
-    .text-section {
-      flex: 1;
-      min-width: 350px;
-      max-width: 500px;
-      margin: 1rem;
+
+    .logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
     }
-    h2 {
-      color: #111;
+
+    .logos img {
+      height: 80px;
+      max-width: 100%;
+      object-fit: contain;
     }
-    .footer {
-      background: #111;
-      color: #ccc;
+
+    footer {
+      background: #222;
+      color: #aaa;
       text-align: center;
       padding: 1rem;
       font-size: 0.9rem;
     }
-    .footer small {
-      display: block;
-      margin-top: 0.5rem;
-      color: #aaa;
+
+    #popup {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -20%);
+      background: white;
+      border: 2px solid #e20074;
+      padding: 2rem;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      z-index: 1000;
+      width: 300px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    #popup h3 {
+      margin-top: 0;
+      color: #e20074;
+    }
+
+    #popup button {
+      background: #e20074;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .drone-box {
+        float: none;
+        width: 100%;
+        margin: 0 0 2rem 0;
+      }
+
+      .hero-header {
+        width: 100%;
+        padding: 2rem 1rem;
+      }
     }
   </style>
+  <script>
+    window.onload = function() {
+      setTimeout(() => {
+        document.getElementById('popup').style.display = 'block';
+      }, 3000);
+    }
+
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
 </head>
 <body>
-  <header>
-    <h1>Revive Drones&trade;</h1>
-    <p>Powered by Innovation. Delivered by Revive.</p>
-  </header>
-  <main>
-    <div class="image-section">
-      <img src="drone_narcan_logotop.png" alt="Revive Drone delivering emergency aid">
-    </div>
-    <div class="text-section">
-      <h2>About the Program</h2>
-      <p>Revive Drones&trade; is a life-saving emergency drone delivery system designed to respond to opioid overdoses with nasal spray deployment in real time. By texting a simple shortcode, witnesses or first responders can summon a drone to deliver the aid within minutes. Drones can be autonomous and/or manned, depending on the event.</p>
-
-      <h2>Shortcode Activation</h2>
-      <p>Users text <strong>738483</strong> with <strong>REVIVE</strong> — triggering immediate dispatch of a drone to the location. Drones can hover to assist as needed.</p>
-      <p>Future payloads will include EpiPens, insulin, and AEDs for rapid crisis response.</p>
-
-      <h2>Why Revive Drones?</h2>
-      <p>Revive’s independence and focus on bold public health strategy make it the ideal partner to deliver critical emergency medical support. Our team brings insider experience, insight, and mission-first commitment to real-time care.</p>
-    </div>
-  </main>
-  <div class="footer">
-    © 2025 Revive Drones. All rights reserved.
-    <small>Revive Drones is the property of Aerial Architects. For more info email <a href="mailto:drones@aerialarcs.com">drones@aerialarcs.com</a></small>
+  <div id="popup">
+    <h3>Thank You for Your Submission</h3>
+    <p>We're reviewing your request. For further inquiries, please email us:</p>
+    <p><a href="mailto:john@revivedrones.com">john@revivedrones.com</a></p>
+    <button onclick="closePopup()">Close</button>
   </div>
+
+  <header>
+    <div class="hero-header">
+      <h1>Revive Drones</h1>
+      <p>Powered by Innovation. Delivered by T-Mobile.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="drone-box">
+      <img src="./tmobilerevivebigdrone.png" alt="Revive Drone Emergency Drop">
+    </div>
+
+    <h2>About the Program</h2>
+    <p>
+      Revive Drones is a life-saving emergency drone delivery system designed to respond to opioid overdoses with Narcan deployment in real time. By texting a simple shortcode, witnesses or first responders can summon a drone to deliver the antidote within minutes. Drones can be autonomous and/or manned, depending on event.
+    </p>
+
+    <h2>Shortcode Activation</h2>
+    <p>
+      Users text <strong>63911</strong> <strong>"OD911"</strong> — triggering immediate dispatch of a Narcan-equipped drone to the location. Drones can hover to assist as needed.
+    </p>
+
+    <p style="text-align: center; font-weight: 500; margin-top: 2rem;">
+      Future payloads will include EpiPens, insulin, and AEDs for rapid crisis response.
+    </p>
+
+    <h2>Why T-Mobile?</h2>
+    <p>
+      T-Mobile’s advanced 5G network and bold public health stance make it the ideal partner to deliver connectivity and brand power to Revive. Our EVP of Communications, Sarah Rodgers—formerly of T-Mobile—brings insider experience and insight, making this partnership our first and only call.
+    </p>
+
+    <div class="logos">
+      <img src="./TMOBILE.jpg" alt="T-Mobile Logo">
+      <img src="./revivedrones.png" alt="Revive Drones Logo">
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Revive Drones. All rights reserved.
+  
+    <div style="color: #fff; margin-top: 1rem; font-size: 0.85rem;">
+      Contact: <strong style="color: #00ffff;">John Johnson</strong><br>
+      Email: <a href="mailto:john@revivedrones.com" style="color: #00ffff;">john@revivedrones.com</a><br>
+      Phone: <a href="tel:9493728413" style="color: #00ffff;">949-372-8413</a>
+    </div>
+
+  </footer>
 </body>
 </html>
