@@ -19,6 +19,12 @@ html,body,#map{height:100%;margin:0;font-family:system-ui,-apple-system,sans-ser
   letter-spacing:.5px;box-shadow:0 4px 20px rgba(0,0,0,.6);backdrop-filter:blur(8px)}
 #title span{color:#44bbff;font-size:11px;font-weight:400;display:block;margin-top:2px}
 #title .stat{color:#ff4466;font-size:12px;font-weight:600;display:block;margin-top:4px}
+#credits{position:absolute;bottom:28px;left:12px;z-index:1000;background:rgba(16,16,24,.92);
+  padding:10px 14px;border-radius:10px;color:#999;font-size:10px;line-height:1.6;
+  box-shadow:0 2px 12px rgba(0,0,0,.5);backdrop-filter:blur(8px);max-width:380px}
+#credits a{color:#44bbff;text-decoration:none}
+#credits a:hover{text-decoration:underline}
+#credits strong{color:#ccc;font-weight:600}
 </style>
 </head><body>
 <div id="controls">
@@ -36,6 +42,13 @@ html,body,#map{height:100%;margin:0;font-family:system-ui,-apple-system,sans-ser
 <div id="title">DFR LIFE SAVING MAP<span>Deaths preventable by Drone First Response</span>
 <span class="stat">75,817 overdose deaths/yr &bull; 328 chase deaths (2013-2026)</span></div>
 <div id="map"></div>
+<div id="credits">
+<strong>Data Sources</strong><br>
+<span style="color:#ff8c00">●</span> Police Chase Deaths: <a href="https://mappingpoliceviolence.us/" target="_blank">Mapping Police Violence</a> (2013–2026)<br>
+<span style="color:#44bbff">●</span> Overdose Deaths: <a href="https://www.cdc.gov/nchs/nvss/vsrr/prov-county-drug-overdose.htm" target="_blank">CDC NCHS NVSS</a> — Provisional County-Level Drug Overdose Death Counts (2020–2024)<br>
+County centroids: <a href="https://www.census.gov/geographies/reference-files/time-series/geo/centers-population.html" target="_blank">U.S. Census Bureau</a> 2020 Centers of Population<br>
+Map by <a href="https://www.revivedrones.com" target="_blank">Revive Drones LLC</a> &bull; Tiles &copy; <a href="https://carto.com/" target="_blank">CARTO</a> &bull; &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
 <script>
