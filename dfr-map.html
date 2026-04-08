@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html><head>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-68QJ1KYMJW"></script>
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag("js",new Date());gtag("config","G-68QJ1KYMJW");
+</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>DFR Life Saving Map — Query Tool</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css"/>
@@ -247,6 +253,7 @@ function fillDD(id,arr){
     dd.dataset.value=item.dataset.value;dd.querySelector('.dd-selected').textContent=item.textContent;
     menu.querySelectorAll('.dd-item').forEach(function(i){i.classList.remove('active')});
     item.classList.add('active');dd.classList.remove('open');doSearch();
+    gtag("event","filter_change",{filter:id,value:item.textContent});
   });
 }
 function resetDD(id){var dd=document.getElementById(id);dd.dataset.value='';dd.querySelector('.dd-selected').textContent=ddDefaults[id]||'All';dd.querySelectorAll('.dd-item').forEach(function(i){i.classList.toggle('active',i.dataset.value==='')});}
@@ -445,17 +452,18 @@ function showList(results){
 
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 
-document.getElementById('btnSearch').addEventListener('click',doSearch);
+document.getElementById('btnSearch').addEventListener('click',function(){doSearch();gtag("event","map_search",{query:document.getElementById('searchBox').value});});
 document.getElementById('btnReset').addEventListener('click',function(){
   document.getElementById('searchBox').value='';
   ['fState','fYear','fRace','fCause','fEncounter','fArmed'].forEach(resetDD);
   document.getElementById('pvOn').checked=true;
   document.getElementById('odOn').checked=true;
   doSearch();map.setView([39,-96],4);
+  gtag("event","map_reset");
 });
-document.getElementById('searchBox').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch()});
-document.getElementById('pvOn').addEventListener('change',doSearch);
-document.getElementById('odOn').addEventListener('change',doSearch);
+document.getElementById('searchBox').addEventListener('keydown',function(e){if(e.key==='Enter'){doSearch();gtag("event","map_search",{query:this.value});}});
+document.getElementById('pvOn').addEventListener('change',function(){doSearch();gtag("event","layer_toggle",{layer:"chase_deaths",enabled:this.checked});});
+document.getElementById('odOn').addEventListener('change',function(){doSearch();gtag("event","layer_toggle",{layer:"overdose_deaths",enabled:this.checked});});
 document.getElementById('toggleBtn').addEventListener('click',function(){document.getElementById('panel').classList.toggle('collapsed')});
 </script>
 </body></html>
