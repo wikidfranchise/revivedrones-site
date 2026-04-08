@@ -9,6 +9,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0a10}
 #map{position:absolute;top:0;left:0;right:0;bottom:0;z-index:1}
+.leaflet-interactive{cursor:pointer!important}
 
 .marker-cluster-small{background:rgba(255,68,102,.35)!important}
 .marker-cluster-small div{background:rgba(255,68,102,.7)!important;color:#fff!important;font-family:'JetBrains Mono',monospace!important;font-size:11px!important}
@@ -351,7 +352,7 @@ function plotResults(results){
     if(isNaN(lat)||isNaN(lng))return;
     var cause=(r.cause_of_death||'').split(',')[0].trim();
     var col=causeColor(cause);
-    var m=L.circleMarker([lat,lng],{radius:6,color:col,fillColor:col,fillOpacity:0.85,weight:1});
+    var m=L.circleMarker([lat,lng],{radius:9,color:col,fillColor:col,fillOpacity:0.85,weight:2,bubblingMouseEvents:false});
     var circ=(r.circumstances||'').substring(0,300);
     m.bindPopup(
       '<div class="pop-name">'+esc(r.name||'Unknown')+'</div>'+
