@@ -48,6 +48,13 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
 .layer-toggle input{accent-color:#ff4466;width:16px;height:16px;cursor:pointer}
 .layer-dot{width:12px;height:12px;border-radius:50%;display:inline-block;border:1px solid rgba(255,255,255,.2)}
 .dot-pv{background:#ff4466}
+@keyframes rtPulse{0%{box-shadow:0 0 0 0 rgba(0,255,136,.5)}70%{box-shadow:0 0 0 8px rgba(0,255,136,0)}100%{box-shadow:0 0 0 0 rgba(0,255,136,0)}}
+.rt-marker{animation:rtPulse 2s infinite}
+.rt-item{padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer}
+.rt-item:hover{background:rgba(0,255,136,.06)}
+.rt-date{color:#00ff88;font-family:'JetBrains Mono',monospace;font-size:10px}
+.rt-loc{color:#ddd;font-size:11px}
+.rt-cause{color:rgba(255,255,255,.4);font-size:10px}
 .dot-od{background:#44bbff}
 
 .filters{padding:16px 24px;display:flex;flex-direction:column;gap:12px;
@@ -154,12 +161,13 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
   <div class="brand">
     <h1>DFR Life Saving Map</h1>
     <p>Deaths preventable by Drone First Response<br>
-    <span style="color:#ff4466">●</span> Police Violence &bull; <span style="color:#44bbff">●</span> Drug Overdose</p>
+    <span style="color:#ff4466">●</span> Police Violence &bull; <span style="color:#44bbff">●</span> Drug Overdose &bull; <span style="color:#00ff88">●</span> Real-Time</p>
   </div>
 
   <div class="layer-toggles">
     <label class="layer-toggle"><input type="checkbox" id="pvOn" checked> <span class="layer-dot dot-pv"></span> Police Violence Deaths</label>
     <label class="layer-toggle"><input type="checkbox" id="odOn" checked> <span class="layer-dot dot-od"></span> Drug Overdose Deaths (County)</label>
+    <label class="layer-toggle"><input type="checkbox" id="rtOn" checked> <span class="layer-dot" style="background:#00ff88;box-shadow:0 0 6px #00ff88"></span> Real-Time Feed <span style="font-size:10px;color:#00ff88;margin-left:4px">● LIVE</span></label>
   </div>
 
   <div class="query-bar">
@@ -218,9 +226,20 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
     <div id="resultsList"></div>
   </div>
 
+  <div id="rtFeed" style="border-top:1px solid rgba(0,255,136,.15);padding:12px 24px">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#00ff88;letter-spacing:1px;margin-bottom:8px">
+      ● REAL-TIME OVERDOSE FEED
+      <span style="font-weight:400;color:rgba(255,255,255,.4);letter-spacing:0;margin-left:6px">Cook County IL &bull; Connecticut</span>
+    </div>
+    <div id="rtList" style="max-height:300px;overflow-y:auto;font-size:11px;color:#bbb;line-height:1.5"></div>
+    <div id="rtCount" style="font-size:10px;color:rgba(255,255,255,.3);margin-top:8px;font-family:'JetBrains Mono',monospace"></div>
+  </div>
+
   <div class="attrib">
     Data: <a href="https://mappingpoliceviolence.us/" target="_blank">Mapping Police Violence</a> (2013–2026) &bull;
     <a href="https://www.cdc.gov/nchs/nvss/vsrr/prov-county-drug-overdose.htm" target="_blank">CDC NCHS/NVSS</a> (2003–2024)<br>
+    Real-Time: <a href="https://datacatalog.cookcountyil.gov/" target="_blank">Cook County ME</a> &bull;
+    <a href="https://data.ct.gov/" target="_blank">CT OCME</a><br>
     Map: <a href="https://www.revivedrones.com" target="_blank">Revive Drones LLC</a> &bull; Tiles &copy; <a href="https://carto.com/" target="_blank">CARTO</a> &bull; &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>
   </div>
 </div>
@@ -384,6 +403,7 @@ function doSearch(){
   document.getElementById('odCount').textContent=odTotal.toLocaleString();
   showPVStats(pvResults);
   showList(pvResults);
+  if(typeof plotRT==='function')plotRT();
 }
 
 function plotPV(results){
@@ -458,12 +478,70 @@ document.getElementById('btnReset').addEventListener('click',function(){
   ['fState','fYear','fRace','fCause','fEncounter','fArmed'].forEach(resetDD);
   document.getElementById('pvOn').checked=true;
   document.getElementById('odOn').checked=true;
+  document.getElementById('rtOn').checked=true;
+  map.addLayer(rtLayer);plotRT();document.getElementById('rtFeed').style.display='block';
   doSearch();map.setView([39,-96],4);
   gtag("event","map_reset");
 });
 document.getElementById('searchBox').addEventListener('keydown',function(e){if(e.key==='Enter'){doSearch();gtag("event","map_search",{query:this.value});}});
 document.getElementById('pvOn').addEventListener('change',function(){doSearch();gtag("event","layer_toggle",{layer:"chase_deaths",enabled:this.checked});});
 document.getElementById('odOn').addEventListener('change',function(){doSearch();gtag("event","layer_toggle",{layer:"overdose_deaths",enabled:this.checked});});
+var rtLayer=L.layerGroup();
+map.addLayer(rtLayer);
+var rtData=[];
+
+fetch('realtime_od.json').then(function(r){return r.json()}).then(function(data){
+  rtData=data;
+  plotRT();
+  fillRTFeed();
+}).catch(function(e){console.log('RT load error',e)});
+
+function plotRT(){
+  rtLayer.clearLayers();
+  if(!document.getElementById('rtOn').checked)return;
+  var fS=getDD('fState');
+  rtData.forEach(function(r){
+    if(fS){
+      var st=r.p.split(',').pop().trim();
+      if(st!==fS)return;
+    }
+    var m=L.circleMarker([r.la,r.lo],{radius:5,color:'#00ff88',fillColor:'#00ff88',
+      fillOpacity:0.7,weight:1,className:'rt-marker',bubblingMouseEvents:false});
+    m.bindPopup('<div class="pop-name" style="color:#00ff88">Overdose Death</div>'+
+      '<div class="pop-line"><b>Date:</b> '+esc(r.d)+'</div>'+
+      '<div class="pop-line"><b>Location:</b> '+esc(r.p)+'</div>'+
+      '<div class="pop-line"><b>Cause:</b> '+esc(r.c)+'</div>'+
+      '<div class="pop-line" style="color:#00ff88;font-size:10px;margin-top:6px">● REAL-TIME — Medical Examiner Open Data</div>',{maxWidth:300});
+    rtLayer.addLayer(m);
+  });
+}
+
+function fillRTFeed(){
+  var html='';
+  var show=rtData.slice(0,100);
+  show.forEach(function(r){
+    html+='<div class="rt-item" data-lat="'+r.la+'" data-lng="'+r.lo+'">'+
+      '<span class="rt-date">'+r.d+'</span> '+
+      '<span class="rt-loc">'+esc(r.p)+'</span><br>'+
+      '<span class="rt-cause">'+esc(r.c)+'</span></div>';
+  });
+  document.getElementById('rtList').innerHTML=html;
+  document.getElementById('rtCount').textContent=rtData.length.toLocaleString()+' overdose deaths from open ME data (Cook County IL + Connecticut)';
+  document.querySelectorAll('.rt-item').forEach(function(el){
+    el.addEventListener('click',function(){
+      var lat=parseFloat(this.dataset.lat),lng=parseFloat(this.dataset.lng);
+      if(!isNaN(lat))map.setView([lat,lng],14);
+    });
+  });
+}
+
+document.getElementById('rtOn').addEventListener('change',function(){
+  if(this.checked){map.addLayer(rtLayer);plotRT();}
+  else{map.removeLayer(rtLayer);}
+  document.getElementById('rtFeed').style.display=this.checked?'block':'none';
+  gtag("event","layer_toggle",{layer:"realtime_feed",enabled:this.checked});
+});
+
 document.getElementById('toggleBtn').addEventListener('click',function(){document.getElementById('panel').classList.toggle('collapsed')});
 </script>
 </body></html>
