@@ -229,7 +229,7 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
   <div id="rtFeed" style="border-top:1px solid rgba(0,255,136,.15);padding:12px 24px">
     <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:#00ff88;letter-spacing:1px;margin-bottom:8px">
       ● REAL-TIME OVERDOSE FEED
-      <span style="font-weight:400;color:rgba(255,255,255,.4);letter-spacing:0;margin-left:6px">Cook County IL &bull; Connecticut</span>
+      <span style="font-weight:400;color:rgba(255,255,255,.4);letter-spacing:0;margin-left:6px">Cook County IL &bull; Connecticut &bull; Santa Clara CA</span>
     </div>
     <div id="rtList" style="max-height:300px;overflow-y:auto;font-size:11px;color:#bbb;line-height:1.5"></div>
     <div id="rtCount" style="font-size:10px;color:rgba(255,255,255,.3);margin-top:8px;font-family:'JetBrains Mono',monospace"></div>
@@ -239,7 +239,8 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
     Data: <a href="https://mappingpoliceviolence.us/" target="_blank">Mapping Police Violence</a> (2013–2026) &bull;
     <a href="https://www.cdc.gov/nchs/nvss/vsrr/prov-county-drug-overdose.htm" target="_blank">CDC NCHS/NVSS</a> (2003–2024)<br>
     Real-Time: <a href="https://datacatalog.cookcountyil.gov/" target="_blank">Cook County ME</a> &bull;
-    <a href="https://data.ct.gov/" target="_blank">CT OCME</a><br>
+    <a href="https://data.ct.gov/" target="_blank">CT OCME</a> &bull;
+    <a href="https://data.sccgov.org/" target="_blank">Santa Clara ME</a><br>
     Map: <a href="https://www.revivedrones.com" target="_blank">Revive Drones LLC</a> &bull; Tiles &copy; <a href="https://carto.com/" target="_blank">CARTO</a> &bull; &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>
   </div>
 </div>
@@ -296,7 +297,7 @@ var loaded=0;
 
 function checkLoaded(){
   loaded++;
-  if(loaded>=2){populateFilters();doSearch();document.getElementById("loading").style.display="none";}
+  if(loaded>=2){populateFilters();if(typeof applyURLParams==='function')applyURLParams();doSearch();document.getElementById("loading").style.display="none";}
 }
 
 /* ── Load Police Violence ── */
@@ -541,6 +542,37 @@ document.getElementById('rtOn').addEventListener('change',function(){
   document.getElementById('rtFeed').style.display=this.checked?'block':'none';
   gtag("event","layer_toggle",{layer:"realtime_feed",enabled:this.checked});
 });
+
+/* ── Shareable deep links ── */
+function buildShareURL(){
+  var params=[];
+  var s=getDD('fState');if(s)params.push('state='+encodeURIComponent(s));
+  var y=getDD('fYear');if(y)params.push('year='+y);
+  var q=document.getElementById('searchBox').value.trim();if(q)params.push('q='+encodeURIComponent(q));
+  if(!document.getElementById('pvOn').checked)params.push('pv=0');
+  if(!document.getElementById('odOn').checked)params.push('od=0');
+  if(!document.getElementById('rtOn').checked)params.push('rt=0');
+  return window.location.origin+window.location.pathname+(params.length?'?'+params.join('&'):'');
+}
+function applyURLParams(){
+  var p=new URLSearchParams(window.location.search);
+  if(p.has('state')){var v=p.get('state');document.getElementById('fState').dataset.value=v;document.getElementById('fState').querySelector('.dd-selected').textContent=v;}
+  if(p.has('year')){var v=p.get('year');document.getElementById('fYear').dataset.value=v;document.getElementById('fYear').querySelector('.dd-selected').textContent=v;}
+  if(p.has('q'))document.getElementById('searchBox').value=p.get('q');
+  if(p.get('pv')==='0')document.getElementById('pvOn').checked=false;
+  if(p.get('od')==='0')document.getElementById('odOn').checked=false;
+  if(p.get('rt')==='0'){document.getElementById('rtOn').checked=false;document.getElementById('rtFeed').style.display='none';}
+}
+var shareBtn=document.createElement('button');
+shareBtn.className='btn btn-secondary';
+shareBtn.style.cssText='margin:8px 24px;font-size:11px;letter-spacing:1px';
+shareBtn.textContent='⛓ COPY SHARE LINK';
+shareBtn.addEventListener('click',function(){
+  var url=buildShareURL();
+  navigator.clipboard.writeText(url).then(function(){shareBtn.textContent='✓ COPIED!';setTimeout(function(){shareBtn.textContent='⛓ COPY SHARE LINK'},2000)});
+  gtag("event","share_link",{url:url});
+});
+document.querySelector('.layer-toggles').appendChild(shareBtn);
 
 document.getElementById('toggleBtn').addEventListener('click',function(){document.getElementById('panel').classList.toggle('collapsed')});
 </script>
