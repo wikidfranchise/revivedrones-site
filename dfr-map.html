@@ -351,7 +351,7 @@ function plotResults(results){
     if(isNaN(lat)||isNaN(lng))return;
     var cause=(r.cause_of_death||'').split(',')[0].trim();
     var col=causeColor(cause);
-    var m=L.circleMarker([lat,lng],{radius:5,color:col,fillColor:col,fillOpacity:0.85,weight:1});
+    var m=L.circleMarker([lat,lng],{radius:6,color:col,fillColor:col,fillOpacity:0.85,weight:1});
     var circ=(r.circumstances||'').substring(0,300);
     m.bindPopup(
       '<div class="pop-name">'+esc(r.name||'Unknown')+'</div>'+
@@ -366,6 +366,8 @@ function plotResults(results){
       {maxWidth:320}
     );
     cluster.addLayer(m);
+    m.on('mouseover',function(e){this.openPopup()});
+    m.on('mouseout',function(e){this.closePopup()});
     bounds.push([lat,lng]);
   });
   if(bounds.length>0&&bounds.length<allData.length){
