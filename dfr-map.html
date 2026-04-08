@@ -352,7 +352,7 @@ function plotResults(results){
     if(isNaN(lat)||isNaN(lng))return;
     var cause=(r.cause_of_death||'').split(',')[0].trim();
     var col=causeColor(cause);
-    var m=L.circleMarker([lat,lng],{radius:9,color:col,fillColor:col,fillOpacity:0.85,weight:2,bubblingMouseEvents:false});
+    var m=L.circleMarker([lat,lng],{radius:14,color:col,fillColor:col,fillOpacity:0.7,weight:2,bubblingMouseEvents:false});
     var circ=(r.circumstances||'').substring(0,300);
     m.bindPopup(
       '<div class="pop-name">'+esc(r.name||'Unknown')+'</div>'+
