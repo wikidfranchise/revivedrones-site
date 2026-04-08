@@ -10,7 +10,6 @@
 html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0a10}
 #map{position:absolute;top:0;left:0;right:0;bottom:0;z-index:1}
 
-/* Override cluster icons */
 .marker-cluster-small{background:rgba(255,68,102,.35)!important}
 .marker-cluster-small div{background:rgba(255,68,102,.7)!important;color:#fff!important;font-family:'JetBrains Mono',monospace!important;font-size:11px!important}
 .marker-cluster-medium{background:rgba(255,140,0,.35)!important}
@@ -18,16 +17,13 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
 .marker-cluster-large{background:rgba(255,40,40,.35)!important}
 .marker-cluster-large div{background:rgba(255,40,40,.7)!important;color:#fff!important;font-family:'JetBrains Mono',monospace!important;font-size:12px!important}
 
-/* Panel */
 #panel{position:absolute;top:0;left:0;bottom:0;width:380px;z-index:1000;
-  background:rgba(10,10,18,.96);backdrop-filter:blur(16px);
-  border-right:1px solid rgba(255,255,255,.06);overflow-y:auto;
+  background:#0c0c16;border-right:1px solid rgba(255,255,255,.06);overflow-y:auto;
   display:flex;flex-direction:column;transition:transform .3s ease}
 #panel.collapsed{transform:translateX(-380px)}
-#toggleBtn{position:absolute;top:14px;z-index:1001;background:rgba(10,10,18,.92);
+#toggleBtn{position:absolute;top:14px;z-index:1001;background:#0c0c16;
   border:1px solid rgba(255,255,255,.1);color:#ccc;border-radius:0 8px 8px 0;
-  padding:10px 10px;cursor:pointer;font-size:16px;transition:left .3s ease;left:380px;
-  backdrop-filter:blur(8px)}
+  padding:10px 10px;cursor:pointer;font-size:16px;transition:left .3s ease;left:380px}
 #panel.collapsed~#toggleBtn{left:0}
 
 .brand{padding:20px 24px 12px;border-bottom:1px solid rgba(255,255,255,.06)}
@@ -38,22 +34,30 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
 .filters{padding:16px 24px;display:flex;flex-direction:column;gap:12px;
   border-bottom:1px solid rgba(255,255,255,.06)}
 .filter-group{display:flex;flex-direction:column;gap:4px}
-.filter-group label{color:rgba(255,255,255,.5);font-size:10px;text-transform:uppercase;
+.filter-group>label{color:rgba(255,255,255,.5);font-size:10px;text-transform:uppercase;
   letter-spacing:1.2px;font-weight:500}
-.filter-group select{background:#1a1a2e;color:#eee;
-  border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:8px 10px;font-size:13px;
-  font-family:'DM Sans',sans-serif;width:100%;outline:none;transition:border-color .2s;
-  -webkit-appearance:none;appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23888'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 10px center;padding-right:28px}
-.filter-group input{background:#1a1a2e;color:#eee;
-  border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:8px 10px;font-size:13px;
-  font-family:'DM Sans',sans-serif;width:100%;outline:none;transition:border-color .2s}
-.filter-group select:focus,.filter-group input:focus{border-color:rgba(255,68,102,.5)}
-.filter-group select option{background:#1a1a2e;color:#eee;padding:4px 8px}
-.filter-group input::placeholder{color:rgba(255,255,255,.25)}
 .filter-row{display:flex;gap:10px}
 .filter-row .filter-group{flex:1}
+
+/* ── Custom dropdown ── */
+.dd{position:relative;width:100%;user-select:none}
+.dd-selected{background:#1a1a2e;color:#ddd;border:1px solid rgba(255,255,255,.12);
+  border-radius:6px;padding:8px 28px 8px 10px;font-size:13px;cursor:pointer;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative}
+.dd-selected::after{content:'\25BE';position:absolute;right:10px;top:50%;transform:translateY(-50%);
+  color:#888;font-size:11px;pointer-events:none}
+.dd-selected:hover{border-color:rgba(255,68,102,.4)}
+.dd-menu{display:none;position:absolute;top:calc(100% + 2px);left:0;right:0;
+  background:#1a1a2e;border:1px solid rgba(255,255,255,.15);border-radius:6px;
+  max-height:220px;overflow-y:auto;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.6)}
+.dd.open .dd-menu{display:block}
+.dd-item{padding:7px 10px;font-size:13px;color:#ddd;cursor:pointer;
+  border-bottom:1px solid rgba(255,255,255,.04)}
+.dd-item:hover{background:rgba(255,68,102,.15);color:#fff}
+.dd-item.active{background:rgba(255,68,102,.25);color:#fff}
+.dd-menu::-webkit-scrollbar{width:6px}
+.dd-menu::-webkit-scrollbar-track{background:transparent}
+.dd-menu::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:3px}
 
 .query-bar{padding:16px 24px;border-bottom:1px solid rgba(255,255,255,.06)}
 .query-bar input{width:100%;background:#1a1a2e;color:#fff;
@@ -71,7 +75,6 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
 .btn-secondary{background:rgba(255,255,255,.08);color:#aaa;flex:1}
 .btn-secondary:hover{background:rgba(255,255,255,.12);color:#fff}
 
-/* Stats */
 .stats{padding:16px 24px;border-bottom:1px solid rgba(255,255,255,.06)}
 .stats-title{color:rgba(255,255,255,.4);font-size:10px;text-transform:uppercase;
   letter-spacing:1.2px;margin-bottom:10px}
@@ -83,7 +86,6 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
 .stat-big .num{font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:700;color:#ff4466}
 .stat-big .lbl{color:rgba(255,255,255,.4);font-size:11px;margin-top:2px}
 
-/* Results list */
 .results{flex:1;overflow-y:auto;padding:8px 16px}
 .results-header{color:rgba(255,255,255,.4);font-size:10px;text-transform:uppercase;
   letter-spacing:1.2px;padding:8px}
@@ -93,12 +95,10 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
 .result-item .name{color:#ff8c00;font-size:13px;font-weight:600}
 .result-item .meta{color:rgba(255,255,255,.45);font-size:11px;margin-top:2px}
 
-/* Attribution */
 .attrib{padding:12px 24px;border-top:1px solid rgba(255,255,255,.06);
   color:rgba(255,255,255,.25);font-size:9px;line-height:1.5}
 .attrib a{color:rgba(255,255,255,.4)}
 
-/* Loading */
 #loading{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2000;
   color:#ff4466;font-family:'JetBrains Mono',monospace;font-size:14px;
   background:rgba(10,10,18,.95);padding:30px 40px;border-radius:12px;
@@ -107,7 +107,6 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
   border-top-color:#ff4466;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* Popup overrides */
 .leaflet-popup-content-wrapper{background:rgba(16,16,26,.96)!important;color:#eee!important;
   border-radius:10px!important;border:1px solid rgba(255,255,255,.1)!important;
   backdrop-filter:blur(10px)!important;box-shadow:0 8px 32px rgba(0,0,0,.5)!important}
@@ -145,31 +144,31 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
     <div class="filter-row">
       <div class="filter-group">
         <label>State</label>
-        <select id="fState"><option value="">All States</option></select>
+        <div class="dd" id="fState" data-value=""><div class="dd-selected">All States</div><div class="dd-menu"></div></div>
       </div>
       <div class="filter-group">
         <label>Year</label>
-        <select id="fYear"><option value="">All Years</option></select>
+        <div class="dd" id="fYear" data-value=""><div class="dd-selected">All Years</div><div class="dd-menu"></div></div>
       </div>
     </div>
     <div class="filter-row">
       <div class="filter-group">
         <label>Race</label>
-        <select id="fRace"><option value="">All</option></select>
+        <div class="dd" id="fRace" data-value=""><div class="dd-selected">All</div><div class="dd-menu"></div></div>
       </div>
       <div class="filter-group">
         <label>Cause</label>
-        <select id="fCause"><option value="">All</option></select>
+        <div class="dd" id="fCause" data-value=""><div class="dd-selected">All</div><div class="dd-menu"></div></div>
       </div>
     </div>
     <div class="filter-row">
       <div class="filter-group">
         <label>Encounter Type</label>
-        <select id="fEncounter"><option value="">All</option></select>
+        <div class="dd" id="fEncounter" data-value=""><div class="dd-selected">All</div><div class="dd-menu"></div></div>
       </div>
       <div class="filter-group">
         <label>Armed Status</label>
-        <select id="fArmed"><option value="">All</option></select>
+        <div class="dd" id="fArmed" data-value=""><div class="dd-selected">All</div><div class="dd-menu"></div></div>
       </div>
     </div>
   </div>
@@ -202,16 +201,71 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script>
-// ── Map setup ──
-var map = L.map("map",{zoomControl:false}).setView([39,-96],4);
+/* ── Custom dropdown logic ── */
+var ddDefaults={fState:'All States',fYear:'All Years',fRace:'All',fCause:'All',fEncounter:'All',fArmed:'All'};
+
+document.addEventListener('click',function(e){
+  document.querySelectorAll('.dd.open').forEach(function(dd){
+    if(!dd.contains(e.target)) dd.classList.remove('open');
+  });
+});
+
+document.querySelectorAll('.dd-selected').forEach(function(sel){
+  sel.addEventListener('click',function(e){
+    e.stopPropagation();
+    var dd=this.parentElement;
+    document.querySelectorAll('.dd.open').forEach(function(d){if(d!==dd)d.classList.remove('open')});
+    dd.classList.toggle('open');
+  });
+});
+
+function fillDD(id,arr){
+  var dd=document.getElementById(id);
+  var menu=dd.querySelector('.dd-menu');
+  var defLabel=ddDefaults[id]||'All';
+  var allItem=document.createElement('div');
+  allItem.className='dd-item active';
+  allItem.dataset.value='';
+  allItem.textContent=defLabel;
+  menu.appendChild(allItem);
+  arr.forEach(function(v){
+    var item=document.createElement('div');
+    item.className='dd-item';
+    item.dataset.value=v;
+    item.textContent=v;
+    menu.appendChild(item);
+  });
+  menu.addEventListener('click',function(e){
+    var item=e.target.closest('.dd-item');
+    if(!item) return;
+    dd.dataset.value=item.dataset.value;
+    dd.querySelector('.dd-selected').textContent=item.textContent;
+    menu.querySelectorAll('.dd-item').forEach(function(i){i.classList.remove('active')});
+    item.classList.add('active');
+    dd.classList.remove('open');
+    doSearch();
+  });
+}
+
+function resetDD(id){
+  var dd=document.getElementById(id);
+  dd.dataset.value='';
+  dd.querySelector('.dd-selected').textContent=ddDefaults[id]||'All';
+  dd.querySelectorAll('.dd-item').forEach(function(i){
+    i.classList.toggle('active',i.dataset.value==='');
+  });
+}
+
+function getDD(id){return document.getElementById(id).dataset.value||'';}
+
+/* ── Map setup ── */
+var map=L.map("map",{zoomControl:false}).setView([39,-96],4);
 L.control.zoom({position:'topright'}).addTo(map);
 L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",{
-  attribution:"© OSM © CARTO",maxZoom:18}).addTo(map);
+  attribution:"&copy; OSM &copy; CARTO",maxZoom:18}).addTo(map);
 
-var cluster = L.markerClusterGroup({
-  maxClusterRadius:50,
-  spiderfyOnMaxZoom:true,
-  showCoverageOnHover:false,
+var cluster=L.markerClusterGroup({
+  maxClusterRadius:50,spiderfyOnMaxZoom:true,showCoverageOnHover:false,
   iconCreateFunction:function(c){
     var n=c.getChildCount();
     var cls=n<20?'small':n<100?'medium':'large';
@@ -220,23 +274,22 @@ var cluster = L.markerClusterGroup({
 });
 map.addLayer(cluster);
 
-var allData = [];
+var allData=[];
 
-// ── Color by cause ──
 function causeColor(c){
-  if(c.includes('Gunshot')) return '#ff4466';
-  if(c.includes('Taser')) return '#ffaa00';
-  if(c.includes('Vehicle')) return '#44bbff';
-  if(c.includes('Beaten')||c.includes('Physical')) return '#cc66ff';
+  if(c.indexOf('Gunshot')!==-1) return '#ff4466';
+  if(c.indexOf('Taser')!==-1) return '#ffaa00';
+  if(c.indexOf('Vehicle')!==-1) return '#44bbff';
+  if(c.indexOf('Beaten')!==-1||c.indexOf('Physical')!==-1) return '#cc66ff';
   return '#ff8c00';
 }
 
-// ── Load CSV ──
+/* ── Load CSV ── */
 Papa.parse("Mapping_Police_Violence.csv",{
-  download:true, header:true, skipEmptyLines:true,
+  download:true,header:true,skipEmptyLines:true,
   complete:function(res){
-    allData = res.data.filter(function(r){
-      return r.latitude && r.longitude && !isNaN(parseFloat(r.latitude));
+    allData=res.data.filter(function(r){
+      return r.latitude&&r.longitude&&!isNaN(parseFloat(r.latitude));
     });
     populateFilters();
     doSearch();
@@ -248,56 +301,43 @@ Papa.parse("Mapping_Police_Violence.csv",{
 });
 
 function populateFilters(){
-  var states=new Set(), years=new Set(), races=new Set(), causes=new Set(), encounters=new Set(), armed=new Set();
+  var states=new Set(),years=new Set(),races=new Set(),causes=new Set(),encounters=new Set(),armed=new Set();
   allData.forEach(function(r){
-    if(r.state) states.add(r.state);
-    var d=r.date||''; var p=d.split('/'); if(p.length===3&&p[2]) years.add(p[2]);
-    if(r.race) races.add(r.race);
-    var c=(r.cause_of_death||'').split(',')[0].trim(); if(c) causes.add(c);
-    if(r.encounter_type) encounters.add(r.encounter_type);
-    if(r.allegedly_armed) armed.add(r.allegedly_armed);
+    if(r.state)states.add(r.state);
+    var d=r.date||'';var p=d.split('/');if(p.length===3&&p[2])years.add(p[2]);
+    if(r.race)races.add(r.race);
+    var c=(r.cause_of_death||'').split(',')[0].trim();if(c)causes.add(c);
+    if(r.encounter_type)encounters.add(r.encounter_type);
+    if(r.allegedly_armed)armed.add(r.allegedly_armed);
   });
-  fill('fState',Array.from(states).sort());
-  fill('fYear',Array.from(years).sort().reverse());
-  fill('fRace',Array.from(races).sort());
-  fill('fCause',Array.from(causes).sort());
-  fill('fEncounter',Array.from(encounters).sort());
-  fill('fArmed',Array.from(armed).sort());
+  fillDD('fState',Array.from(states).sort());
+  fillDD('fYear',Array.from(years).sort().reverse());
+  fillDD('fRace',Array.from(races).sort());
+  fillDD('fCause',Array.from(causes).sort());
+  fillDD('fEncounter',Array.from(encounters).sort());
+  fillDD('fArmed',Array.from(armed).sort());
 }
 
-function fill(id,arr){
-  var s=document.getElementById(id);
-  arr.forEach(function(v){var o=document.createElement('option');o.value=v;o.textContent=v;s.appendChild(o)});
-}
-
-// ── Search / Filter ──
+/* ── Search / Filter ── */
 function doSearch(){
   var q=(document.getElementById('searchBox').value||'').toLowerCase().trim();
-  var fS=document.getElementById('fState').value;
-  var fY=document.getElementById('fYear').value;
-  var fR=document.getElementById('fRace').value;
-  var fC=document.getElementById('fCause').value;
-  var fE=document.getElementById('fEncounter').value;
-  var fA=document.getElementById('fArmed').value;
-
+  var fS=getDD('fState'),fY=getDD('fYear'),fR=getDD('fRace');
+  var fC=getDD('fCause'),fE=getDD('fEncounter'),fA=getDD('fArmed');
   var results=[];
   allData.forEach(function(r){
-    // filters
-    if(fS && r.state!==fS) return;
+    if(fS&&r.state!==fS)return;
     if(fY){var d=r.date||'';var p=d.split('/');if(p.length!==3||p[2]!==fY)return;}
-    if(fR && r.race!==fR) return;
+    if(fR&&r.race!==fR)return;
     if(fC){var c=(r.cause_of_death||'').split(',')[0].trim();if(c!==fC)return;}
-    if(fE && r.encounter_type!==fE) return;
-    if(fA && r.allegedly_armed!==fA) return;
-    // text search
+    if(fE&&r.encounter_type!==fE)return;
+    if(fA&&r.allegedly_armed!==fA)return;
     if(q){
-      var haystack=[r.name,r.city,r.state,r.county,r.agency_responsible,
+      var h=[r.name,r.city,r.state,r.county,r.agency_responsible,
         r.circumstances,r.street_address,r.initial_reason].join(' ').toLowerCase();
-      if(haystack.indexOf(q)===-1) return;
+      if(h.indexOf(q)===-1)return;
     }
     results.push(r);
   });
-
   plotResults(results);
   showStats(results);
   showList(results);
@@ -308,14 +348,14 @@ function plotResults(results){
   var bounds=[];
   results.forEach(function(r){
     var lat=parseFloat(r.latitude),lng=parseFloat(r.longitude);
-    if(isNaN(lat)||isNaN(lng)) return;
+    if(isNaN(lat)||isNaN(lng))return;
     var cause=(r.cause_of_death||'').split(',')[0].trim();
     var col=causeColor(cause);
     var m=L.circleMarker([lat,lng],{radius:5,color:col,fillColor:col,fillOpacity:0.85,weight:1});
     var circ=(r.circumstances||'').substring(0,300);
     m.bindPopup(
       '<div class="pop-name">'+esc(r.name||'Unknown')+'</div>'+
-      '<div class="pop-line"><b>Age:</b> '+(r.age||'?')+' · <b>Gender:</b> '+(r.gender||'?')+' · <b>Race:</b> '+(r.race||'?')+'</div>'+
+      '<div class="pop-line"><b>Age:</b> '+(r.age||'?')+' &middot; <b>Gender:</b> '+(r.gender||'?')+' &middot; <b>Race:</b> '+(r.race||'?')+'</div>'+
       '<div class="pop-line"><b>Date:</b> '+(r.date||'?')+'</div>'+
       '<div class="pop-line"><b>Location:</b> '+esc((r.city||'')+', '+(r.state||''))+'</div>'+
       '<div class="pop-line"><b>Agency:</b> '+esc(r.agency_responsible||'?')+'</div>'+
@@ -328,72 +368,61 @@ function plotResults(results){
     cluster.addLayer(m);
     bounds.push([lat,lng]);
   });
-  if(bounds.length>0 && bounds.length<allData.length){
+  if(bounds.length>0&&bounds.length<allData.length){
     map.fitBounds(bounds,{padding:[60,60],maxZoom:12});
   }
 }
 
 function showStats(results){
   document.getElementById('matchCount').textContent=results.length.toLocaleString();
-  // breakdowns
   var byRace={},byCause={},byState={};
   results.forEach(function(r){
-    var ra=r.race||'Unknown'; byRace[ra]=(byRace[ra]||0)+1;
-    var ca=(r.cause_of_death||'').split(',')[0].trim()||'Unknown'; byCause[ca]=(byCause[ca]||0)+1;
-    var st=r.state||'?'; byState[st]=(byState[st]||0)+1;
+    var ra=r.race||'Unknown';byRace[ra]=(byRace[ra]||0)+1;
+    var ca=(r.cause_of_death||'').split(',')[0].trim()||'Unknown';byCause[ca]=(byCause[ca]||0)+1;
+    var st=r.state||'?';byState[st]=(byState[st]||0)+1;
   });
   var html='<div class="stats-title">Race Breakdown</div>';
-  sortedEntries(byRace).forEach(function(e){html+=statRow(e[0],e[1])});
+  srt(byRace).forEach(function(e){html+=sr(e[0],e[1])});
   html+='<div class="stats-title" style="margin-top:12px">Top Causes</div>';
-  sortedEntries(byCause).slice(0,5).forEach(function(e){html+=statRow(e[0],e[1])});
+  srt(byCause).slice(0,5).forEach(function(e){html+=sr(e[0],e[1])});
   html+='<div class="stats-title" style="margin-top:12px">Top States</div>';
-  sortedEntries(byState).slice(0,5).forEach(function(e){html+=statRow(e[0],e[1])});
+  srt(byState).slice(0,5).forEach(function(e){html+=sr(e[0],e[1])});
   document.getElementById('statRows').innerHTML=html;
 }
 
-function sortedEntries(obj){return Object.entries(obj).sort(function(a,b){return b[1]-a[1]})}
-function statRow(k,v){return '<div class="stat-row"><span class="k">'+esc(k)+'</span><span class="v">'+v.toLocaleString()+'</span></div>'}
+function srt(o){return Object.entries(o).sort(function(a,b){return b[1]-a[1]})}
+function sr(k,v){return '<div class="stat-row"><span class="k">'+esc(k)+'</span><span class="v">'+v.toLocaleString()+'</span></div>'}
 
 function showList(results){
-  var max=200;
-  var shown=results.slice(0,max);
+  var max=200,shown=results.slice(0,max);
   document.getElementById('resultsHeader').textContent=
     results.length<=max?results.length+' results':'Showing '+max+' of '+results.length.toLocaleString();
   var html='';
   shown.forEach(function(r){
     html+='<div class="result-item" data-lat="'+r.latitude+'" data-lng="'+r.longitude+'">'+
       '<div class="name">'+esc(r.name||'Unknown')+'</div>'+
-      '<div class="meta">'+(r.date||'?')+' · '+esc((r.city||'')+', '+(r.state||''))+' · '+
+      '<div class="meta">'+(r.date||'?')+' &middot; '+esc((r.city||'')+', '+(r.state||''))+' &middot; '+
       esc((r.cause_of_death||'').split(',')[0])+'</div></div>';
   });
   document.getElementById('resultsList').innerHTML=html;
-  // click to fly
   document.querySelectorAll('.result-item').forEach(function(el){
     el.addEventListener('click',function(){
       var lat=parseFloat(this.dataset.lat),lng=parseFloat(this.dataset.lng);
-      if(!isNaN(lat)) map.setView([lat,lng],14);
+      if(!isNaN(lat))map.setView([lat,lng],14);
     });
   });
 }
 
-function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 
-// ── Event bindings ──
 document.getElementById('btnSearch').addEventListener('click',doSearch);
 document.getElementById('btnReset').addEventListener('click',function(){
   document.getElementById('searchBox').value='';
-  ['fState','fYear','fRace','fCause','fEncounter','fArmed'].forEach(function(id){
-    document.getElementById(id).value='';
-  });
+  ['fState','fYear','fRace','fCause','fEncounter','fArmed'].forEach(resetDD);
   doSearch();
   map.setView([39,-96],4);
 });
 document.getElementById('searchBox').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch()});
-['fState','fYear','fRace','fCause','fEncounter','fArmed'].forEach(function(id){
-  document.getElementById(id).addEventListener('change',doSearch);
-});
-
-// Panel toggle
 document.getElementById('toggleBtn').addEventListener('click',function(){
   document.getElementById('panel').classList.toggle('collapsed');
 });
