@@ -8,8 +8,11 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0a10}
-#map{position:absolute;top:0;left:0;right:0;bottom:0;z-index:1}
-.leaflet-interactive{cursor:pointer!important}
+#map{position:absolute;top:0;left:0;right:0;bottom:0;z-index:1;cursor:crosshair!important}
+.leaflet-interactive{cursor:crosshair!important}
+.leaflet-container{cursor:crosshair!important}
+.leaflet-grab{cursor:crosshair!important}
+.leaflet-dragging .leaflet-grab{cursor:crosshair!important}
 
 .marker-cluster-small{background:rgba(255,68,102,.35)!important}
 .marker-cluster-small div{background:rgba(255,68,102,.7)!important;color:#fff!important;font-family:'JetBrains Mono',monospace!important;font-size:11px!important}
