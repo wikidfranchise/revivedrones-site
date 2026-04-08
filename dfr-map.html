@@ -21,19 +21,28 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
 .marker-cluster-large{background:rgba(255,40,40,.35)!important}
 .marker-cluster-large div{background:rgba(255,40,40,.7)!important;color:#fff!important;font-family:'JetBrains Mono',monospace!important;font-size:12px!important}
 
-#panel{position:absolute;top:0;left:0;bottom:0;width:380px;z-index:1000;
+#panel{position:absolute;top:0;left:0;bottom:0;width:390px;z-index:1000;
   background:#0c0c16;border-right:1px solid rgba(255,255,255,.06);overflow-y:auto;
   display:flex;flex-direction:column;transition:transform .3s ease}
-#panel.collapsed{transform:translateX(-380px)}
+#panel.collapsed{transform:translateX(-390px)}
 #toggleBtn{position:absolute;top:14px;z-index:1001;background:#0c0c16;
   border:1px solid rgba(255,255,255,.1);color:#ccc;border-radius:0 8px 8px 0;
-  padding:10px 10px;cursor:pointer;font-size:16px;transition:left .3s ease;left:380px}
+  padding:10px 10px;cursor:pointer;font-size:16px;transition:left .3s ease;left:390px}
 #panel.collapsed~#toggleBtn{left:0}
 
 .brand{padding:20px 24px 12px;border-bottom:1px solid rgba(255,255,255,.06)}
 .brand h1{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;
   color:#ff4466;letter-spacing:2px;text-transform:uppercase}
 .brand p{color:rgba(255,255,255,.45);font-size:11px;margin-top:4px;line-height:1.4}
+
+/* Layer toggles */
+.layer-toggles{padding:14px 24px;display:flex;flex-direction:column;gap:8px;
+  border-bottom:1px solid rgba(255,255,255,.06)}
+.layer-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:#ddd}
+.layer-toggle input{accent-color:#ff4466;width:16px;height:16px;cursor:pointer}
+.layer-dot{width:12px;height:12px;border-radius:50%;display:inline-block;border:1px solid rgba(255,255,255,.2)}
+.dot-pv{background:#ff4466}
+.dot-od{background:#44bbff}
 
 .filters{padding:16px 24px;display:flex;flex-direction:column;gap:12px;
   border-bottom:1px solid rgba(255,255,255,.06)}
@@ -43,7 +52,6 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
 .filter-row{display:flex;gap:10px}
 .filter-row .filter-group{flex:1}
 
-/* ── Custom dropdown ── */
 .dd{position:relative;width:100%;user-select:none}
 .dd-selected{background:#1a1a2e;color:#ddd;border:1px solid rgba(255,255,255,.12);
   border-radius:6px;padding:8px 28px 8px 10px;font-size:13px;cursor:pointer;
@@ -86,9 +94,12 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
   border-bottom:1px solid rgba(255,255,255,.03)}
 .stat-row .k{color:rgba(255,255,255,.55);font-size:12px}
 .stat-row .v{color:#fff;font-size:13px;font-weight:600;font-family:'JetBrains Mono',monospace}
-.stat-big{text-align:center;padding:14px 0}
-.stat-big .num{font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:700;color:#ff4466}
-.stat-big .lbl{color:rgba(255,255,255,.4);font-size:11px;margin-top:2px}
+.stat-big{display:flex;gap:20px;justify-content:center;padding:14px 0}
+.stat-box{text-align:center;flex:1}
+.stat-box .num{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700}
+.stat-box .lbl{color:rgba(255,255,255,.4);font-size:10px;margin-top:2px}
+.num-pv{color:#ff4466}
+.num-od{color:#44bbff}
 
 .results{flex:1;overflow-y:auto;padding:8px 16px}
 .results-header{color:rgba(255,255,255,.4);font-size:10px;text-transform:uppercase;
@@ -110,13 +121,14 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
 #loading .spinner{width:32px;height:32px;border:3px solid rgba(255,68,102,.2);
   border-top-color:#ff4466;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
 @keyframes spin{to{transform:rotate(360deg)}}
+#loadMsg{margin-top:8px;color:rgba(255,255,255,.5);font-size:12px}
 
 .leaflet-popup-content-wrapper{background:rgba(16,16,26,.96)!important;color:#eee!important;
   border-radius:10px!important;border:1px solid rgba(255,255,255,.1)!important;
   backdrop-filter:blur(10px)!important;box-shadow:0 8px 32px rgba(0,0,0,.5)!important}
 .leaflet-popup-tip{background:rgba(16,16,26,.96)!important}
 .leaflet-popup-content{font-family:'DM Sans',sans-serif!important;font-size:12px!important;line-height:1.5!important}
-.pop-name{font-size:14px;font-weight:700;color:#ff8c00;margin-bottom:4px}
+.pop-name{font-size:14px;font-weight:700;margin-bottom:4px}
 .pop-line{color:rgba(255,255,255,.6);margin:2px 0}
 .pop-circ{color:rgba(255,255,255,.4);font-size:11px;margin-top:6px;
   border-top:1px solid rgba(255,255,255,.08);padding-top:6px;max-width:280px}
@@ -130,18 +142,23 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
 </style>
 </head><body>
 
-<div id="loading"><div class="spinner"></div>Loading 15,000+ records…</div>
+<div id="loading"><div class="spinner"></div>Loading datasets…<div id="loadMsg"></div></div>
 
 <div id="panel">
   <div class="brand">
     <h1>DFR Life Saving Map</h1>
     <p>Deaths preventable by Drone First Response<br>
-    Source: <a href="https://mappingpoliceviolence.us/" target="_blank" style="color:#ff8c00">Mapping Police Violence</a> • 2013–2026</p>
+    <span style="color:#ff4466">●</span> Police Violence &bull; <span style="color:#44bbff">●</span> Drug Overdose</p>
+  </div>
+
+  <div class="layer-toggles">
+    <label class="layer-toggle"><input type="checkbox" id="pvOn" checked> <span class="layer-dot dot-pv"></span> Police Violence Deaths</label>
+    <label class="layer-toggle"><input type="checkbox" id="odOn" checked> <span class="layer-dot dot-od"></span> Drug Overdose Deaths (County)</label>
   </div>
 
   <div class="query-bar">
     <input type="text" id="searchBox" placeholder="Search names, cities, agencies…">
-    <div class="query-hint">Free text search across all fields. Press Enter or click Search.</div>
+    <div class="query-hint">Searches police violence records. Filters below apply to both layers.</div>
   </div>
 
   <div class="filters">
@@ -183,7 +200,10 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
   </div>
 
   <div class="stats">
-    <div class="stat-big"><span class="num" id="matchCount">—</span><div class="lbl">incidents matched</div></div>
+    <div class="stat-big">
+      <div class="stat-box"><span class="num num-pv" id="pvCount">—</span><div class="lbl">Police Violence</div></div>
+      <div class="stat-box"><span class="num num-od" id="odCount">—</span><div class="lbl">Overdose Deaths</div></div>
+    </div>
     <div id="statRows"></div>
   </div>
 
@@ -193,8 +213,9 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
   </div>
 
   <div class="attrib">
-    Data: <a href="https://mappingpoliceviolence.us/" target="_blank">Mapping Police Violence</a><br>
-    Map: <a href="https://www.revivedrones.com" target="_blank">Revive Drones LLC</a> • Tiles © <a href="https://carto.com/" target="_blank">CARTO</a> • © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>
+    Data: <a href="https://mappingpoliceviolence.us/" target="_blank">Mapping Police Violence</a> (2013–2026) &bull;
+    <a href="https://www.cdc.gov/nchs/nvss/vsrr/prov-county-drug-overdose.htm" target="_blank">CDC NCHS/NVSS</a> (2003–2024)<br>
+    Map: <a href="https://www.revivedrones.com" target="_blank">Revive Drones LLC</a> &bull; Tiles &copy; <a href="https://carto.com/" target="_blank">CARTO</a> &bull; &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>
   </div>
 </div>
 
@@ -205,108 +226,78 @@ html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:#0a0
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script>
-/* ── Custom dropdown logic ── */
+/* ── Custom dropdown ── */
 var ddDefaults={fState:'All States',fYear:'All Years',fRace:'All',fCause:'All',fEncounter:'All',fArmed:'All'};
-
 document.addEventListener('click',function(e){
-  document.querySelectorAll('.dd.open').forEach(function(dd){
-    if(!dd.contains(e.target)) dd.classList.remove('open');
-  });
+  document.querySelectorAll('.dd.open').forEach(function(dd){if(!dd.contains(e.target))dd.classList.remove('open')});
 });
-
 document.querySelectorAll('.dd-selected').forEach(function(sel){
   sel.addEventListener('click',function(e){
-    e.stopPropagation();
-    var dd=this.parentElement;
+    e.stopPropagation();var dd=this.parentElement;
     document.querySelectorAll('.dd.open').forEach(function(d){if(d!==dd)d.classList.remove('open')});
     dd.classList.toggle('open');
   });
 });
-
 function fillDD(id,arr){
-  var dd=document.getElementById(id);
-  var menu=dd.querySelector('.dd-menu');
-  var defLabel=ddDefaults[id]||'All';
-  var allItem=document.createElement('div');
-  allItem.className='dd-item active';
-  allItem.dataset.value='';
-  allItem.textContent=defLabel;
-  menu.appendChild(allItem);
-  arr.forEach(function(v){
-    var item=document.createElement('div');
-    item.className='dd-item';
-    item.dataset.value=v;
-    item.textContent=v;
-    menu.appendChild(item);
-  });
+  var dd=document.getElementById(id),menu=dd.querySelector('.dd-menu'),def=ddDefaults[id]||'All';
+  var ai=document.createElement('div');ai.className='dd-item active';ai.dataset.value='';ai.textContent=def;menu.appendChild(ai);
+  arr.forEach(function(v){var i=document.createElement('div');i.className='dd-item';i.dataset.value=v;i.textContent=v;menu.appendChild(i)});
   menu.addEventListener('click',function(e){
-    var item=e.target.closest('.dd-item');
-    if(!item) return;
-    dd.dataset.value=item.dataset.value;
-    dd.querySelector('.dd-selected').textContent=item.textContent;
+    var item=e.target.closest('.dd-item');if(!item)return;
+    dd.dataset.value=item.dataset.value;dd.querySelector('.dd-selected').textContent=item.textContent;
     menu.querySelectorAll('.dd-item').forEach(function(i){i.classList.remove('active')});
-    item.classList.add('active');
-    dd.classList.remove('open');
-    doSearch();
+    item.classList.add('active');dd.classList.remove('open');doSearch();
   });
 }
-
-function resetDD(id){
-  var dd=document.getElementById(id);
-  dd.dataset.value='';
-  dd.querySelector('.dd-selected').textContent=ddDefaults[id]||'All';
-  dd.querySelectorAll('.dd-item').forEach(function(i){
-    i.classList.toggle('active',i.dataset.value==='');
-  });
-}
-
+function resetDD(id){var dd=document.getElementById(id);dd.dataset.value='';dd.querySelector('.dd-selected').textContent=ddDefaults[id]||'All';dd.querySelectorAll('.dd-item').forEach(function(i){i.classList.toggle('active',i.dataset.value==='')});}
 function getDD(id){return document.getElementById(id).dataset.value||'';}
 
-/* ── Map setup ── */
+/* ── Map ── */
 var map=L.map("map",{zoomControl:false}).setView([39,-96],4);
 L.control.zoom({position:'topright'}).addTo(map);
-L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",{
-  attribution:"&copy; OSM &copy; CARTO",maxZoom:18}).addTo(map);
+L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",{attribution:"&copy; OSM &copy; CARTO",maxZoom:18}).addTo(map);
 
-var cluster=L.markerClusterGroup({
-  maxClusterRadius:50,spiderfyOnMaxZoom:true,showCoverageOnHover:false,
-  iconCreateFunction:function(c){
-    var n=c.getChildCount();
-    var cls=n<20?'small':n<100?'medium':'large';
-    return L.divIcon({html:'<div>'+n+'</div>',className:'marker-cluster marker-cluster-'+cls,iconSize:[36,36]});
-  }
+var pvCluster=L.markerClusterGroup({maxClusterRadius:50,spiderfyOnMaxZoom:true,showCoverageOnHover:false,
+  iconCreateFunction:function(c){var n=c.getChildCount();var cls=n<20?'small':n<100?'medium':'large';
+    return L.divIcon({html:'<div>'+n+'</div>',className:'marker-cluster marker-cluster-'+cls,iconSize:[36,36]});}
 });
-map.addLayer(cluster);
+var odLayer=L.layerGroup();
+map.addLayer(pvCluster);
+map.addLayer(odLayer);
 
-var allData=[];
+var pvData=[],odData=[];
+var loaded=0;
 
-function causeColor(c){
-  if(c.indexOf('Gunshot')!==-1) return '#ff4466';
-  if(c.indexOf('Taser')!==-1) return '#ffaa00';
-  if(c.indexOf('Vehicle')!==-1) return '#44bbff';
-  if(c.indexOf('Beaten')!==-1||c.indexOf('Physical')!==-1) return '#cc66ff';
-  return '#ff8c00';
+function checkLoaded(){
+  loaded++;
+  if(loaded>=2){populateFilters();doSearch();document.getElementById("loading").style.display="none";}
 }
 
-/* ── Load CSV ── */
+/* ── Load Police Violence ── */
+document.getElementById('loadMsg').textContent='Loading police violence data…';
 Papa.parse("Mapping_Police_Violence.csv",{
   download:true,header:true,skipEmptyLines:true,
   complete:function(res){
-    allData=res.data.filter(function(r){
-      return r.latitude&&r.longitude&&!isNaN(parseFloat(r.latitude));
-    });
-    populateFilters();
-    doSearch();
-    document.getElementById("loading").style.display="none";
+    pvData=res.data.filter(function(r){return r.latitude&&r.longitude&&!isNaN(parseFloat(r.latitude))});
+    document.getElementById('loadMsg').textContent='Loading overdose data…';
+    checkLoaded();
   },
-  error:function(){
-    document.getElementById("loading").innerHTML="<b>Error loading CSV.</b><br>Place <code>Mapping_Police_Violence.csv</code> in the same folder as this HTML file.";
-  }
+  error:function(){document.getElementById("loading").innerHTML="<b>Error loading police violence CSV.</b>";checkLoaded();}
+});
+
+/* ── Load Overdose ── */
+Papa.parse("overdose_county_data.csv",{
+  download:true,header:true,skipEmptyLines:true,
+  complete:function(res){
+    odData=res.data.filter(function(r){return r.lat&&r.lon&&r.deaths});
+    checkLoaded();
+  },
+  error:function(){document.getElementById("loading").innerHTML+="<br><b>Error loading overdose CSV.</b>";checkLoaded();}
 });
 
 function populateFilters(){
   var states=new Set(),years=new Set(),races=new Set(),causes=new Set(),encounters=new Set(),armed=new Set();
-  allData.forEach(function(r){
+  pvData.forEach(function(r){
     if(r.state)states.add(r.state);
     var d=r.date||'';var p=d.split('/');if(p.length===3&&p[2])years.add(p[2]);
     if(r.race)races.add(r.race);
@@ -314,6 +305,7 @@ function populateFilters(){
     if(r.encounter_type)encounters.add(r.encounter_type);
     if(r.allegedly_armed)armed.add(r.allegedly_armed);
   });
+  odData.forEach(function(r){if(r.year)years.add(r.year);if(r.state)states.add(r.state)});
   fillDD('fState',Array.from(states).sort());
   fillDD('fYear',Array.from(years).sort().reverse());
   fillDD('fRace',Array.from(races).sort());
@@ -322,34 +314,73 @@ function populateFilters(){
   fillDD('fArmed',Array.from(armed).sort());
 }
 
-/* ── Search / Filter ── */
-function doSearch(){
-  var q=(document.getElementById('searchBox').value||'').toLowerCase().trim();
-  var fS=getDD('fState'),fY=getDD('fYear'),fR=getDD('fRace');
-  var fC=getDD('fCause'),fE=getDD('fEncounter'),fA=getDD('fArmed');
-  var results=[];
-  allData.forEach(function(r){
-    if(fS&&r.state!==fS)return;
-    if(fY){var d=r.date||'';var p=d.split('/');if(p.length!==3||p[2]!==fY)return;}
-    if(fR&&r.race!==fR)return;
-    if(fC){var c=(r.cause_of_death||'').split(',')[0].trim();if(c!==fC)return;}
-    if(fE&&r.encounter_type!==fE)return;
-    if(fA&&r.allegedly_armed!==fA)return;
-    if(q){
-      var h=[r.name,r.city,r.state,r.county,r.agency_responsible,
-        r.circumstances,r.street_address,r.initial_reason].join(' ').toLowerCase();
-      if(h.indexOf(q)===-1)return;
-    }
-    results.push(r);
-  });
-  plotResults(results);
-  showStats(results);
-  showList(results);
+function causeColor(c){
+  if(c.indexOf('Gunshot')!==-1)return'#ff4466';if(c.indexOf('Taser')!==-1)return'#ffaa00';
+  if(c.indexOf('Vehicle')!==-1)return'#44bbff';if(c.indexOf('Beaten')!==-1||c.indexOf('Physical')!==-1)return'#cc66ff';
+  return'#ff8c00';
 }
 
-function plotResults(results){
-  cluster.clearLayers();
-  var bounds=[];
+/* ── Main search ── */
+function doSearch(){
+  var q=(document.getElementById('searchBox').value||'').toLowerCase().trim();
+  var fS=getDD('fState'),fY=getDD('fYear'),fR=getDD('fRace'),fC=getDD('fCause'),fE=getDD('fEncounter'),fA=getDD('fArmed');
+  var pvOn=document.getElementById('pvOn').checked;
+  var odOn=document.getElementById('odOn').checked;
+
+  // Police violence
+  var pvResults=[];
+  if(pvOn){
+    pvData.forEach(function(r){
+      if(fS&&r.state!==fS)return;
+      if(fY){var d=r.date||'';var p=d.split('/');if(p.length!==3||p[2]!==fY)return;}
+      if(fR&&r.race!==fR)return;
+      if(fC){var c=(r.cause_of_death||'').split(',')[0].trim();if(c!==fC)return;}
+      if(fE&&r.encounter_type!==fE)return;
+      if(fA&&r.allegedly_armed!==fA)return;
+      if(q){var h=[r.name,r.city,r.state,r.county,r.agency_responsible,r.circumstances,r.street_address,r.initial_reason].join(' ').toLowerCase();if(h.indexOf(q)===-1)return;}
+      pvResults.push(r);
+    });
+  }
+  plotPV(pvResults);
+
+  // Overdose
+  var odTotal=0;
+  odLayer.clearLayers();
+  if(odOn){
+    var odFiltered={};
+    odData.forEach(function(r){
+      if(fS&&r.state!==fS)return;
+      if(fY&&r.year!==fY)return;
+      var key=r.fips;
+      var d=parseInt(r.deaths)||0;
+      if(!odFiltered[key])odFiltered[key]={lat:parseFloat(r.lat),lon:parseFloat(r.lon),county:r.county,state:r.state,deaths:0,years:{}};
+      odFiltered[key].deaths+=d;
+      odFiltered[key].years[r.year]=(odFiltered[key].years[r.year]||0)+d;
+    });
+    Object.values(odFiltered).forEach(function(c){
+      if(isNaN(c.lat)||c.deaths===0)return;
+      odTotal+=c.deaths;
+      var radius=Math.max(4,Math.min(30,Math.sqrt(c.deaths)*0.4));
+      var m=L.circleMarker([c.lat,c.lon],{radius:radius,color:'#44bbff',fillColor:'#44bbff',fillOpacity:0.35,weight:1,bubblingMouseEvents:false});
+      var yrList=Object.entries(c.years).sort(function(a,b){return b[0]-a[0]}).slice(0,5).map(function(e){return e[0]+': '+Number(e[1]).toLocaleString()}).join('<br>');
+      m.bindPopup('<div class="pop-name" style="color:#44bbff">'+esc(c.county)+'</div>'+
+        '<div class="pop-line"><b>Total Overdose Deaths:</b> '+c.deaths.toLocaleString()+'</div>'+
+        '<div class="pop-line"><b>Recent years:</b><br>'+yrList+'</div>',{maxWidth:280});
+      m.on('mouseover',function(){this.openPopup()});
+      m.on('mouseout',function(){this.closePopup()});
+      odLayer.addLayer(m);
+    });
+  }
+
+  // Stats
+  document.getElementById('pvCount').textContent=pvResults.length.toLocaleString();
+  document.getElementById('odCount').textContent=odTotal.toLocaleString();
+  showPVStats(pvResults);
+  showList(pvResults);
+}
+
+function plotPV(results){
+  pvCluster.clearLayers();
   results.forEach(function(r){
     var lat=parseFloat(r.latitude),lng=parseFloat(r.longitude);
     if(isNaN(lat)||isNaN(lng))return;
@@ -358,7 +389,7 @@ function plotResults(results){
     var m=L.circleMarker([lat,lng],{radius:14,color:col,fillColor:col,fillOpacity:0.7,weight:2,bubblingMouseEvents:false});
     var circ=(r.circumstances||'').substring(0,300);
     m.bindPopup(
-      '<div class="pop-name">'+esc(r.name||'Unknown')+'</div>'+
+      '<div class="pop-name" style="color:#ff8c00">'+esc(r.name||'Unknown')+'</div>'+
       '<div class="pop-line"><b>Age:</b> '+(r.age||'?')+' &middot; <b>Gender:</b> '+(r.gender||'?')+' &middot; <b>Race:</b> '+(r.race||'?')+'</div>'+
       '<div class="pop-line"><b>Date:</b> '+(r.date||'?')+'</div>'+
       '<div class="pop-line"><b>Location:</b> '+esc((r.city||'')+', '+(r.state||''))+'</div>'+
@@ -366,43 +397,36 @@ function plotResults(results){
       '<div class="pop-line"><b>Cause:</b> '+esc(r.cause_of_death||'?')+'</div>'+
       '<div class="pop-line"><b>Encounter:</b> '+esc(r.encounter_type||'?')+'</div>'+
       '<div class="pop-line"><b>Armed:</b> '+esc(r.allegedly_armed||'?')+'</div>'+
-      (circ?'<div class="pop-circ">'+esc(circ)+'</div>':''),
-      {maxWidth:320}
-    );
-    cluster.addLayer(m);
-    m.on('mouseover',function(e){this.openPopup()});
-    m.on('mouseout',function(e){this.closePopup()});
-    bounds.push([lat,lng]);
+      (circ?'<div class="pop-circ">'+esc(circ)+'</div>':''),{maxWidth:320});
+    m.on('mouseover',function(){this.openPopup()});
+    m.on('mouseout',function(){this.closePopup()});
+    pvCluster.addLayer(m);
   });
-  if(bounds.length>0&&bounds.length<allData.length){
-    map.fitBounds(bounds,{padding:[60,60],maxZoom:12});
-  }
 }
 
-function showStats(results){
-  document.getElementById('matchCount').textContent=results.length.toLocaleString();
+function showPVStats(results){
   var byRace={},byCause={},byState={};
   results.forEach(function(r){
     var ra=r.race||'Unknown';byRace[ra]=(byRace[ra]||0)+1;
     var ca=(r.cause_of_death||'').split(',')[0].trim()||'Unknown';byCause[ca]=(byCause[ca]||0)+1;
     var st=r.state||'?';byState[st]=(byState[st]||0)+1;
   });
-  var html='<div class="stats-title">Race Breakdown</div>';
+  var html='<div class="stats-title">Police Violence — Race</div>';
   srt(byRace).forEach(function(e){html+=sr(e[0],e[1])});
-  html+='<div class="stats-title" style="margin-top:12px">Top Causes</div>';
+  html+='<div class="stats-title" style="margin-top:12px">Police Violence — Top Causes</div>';
   srt(byCause).slice(0,5).forEach(function(e){html+=sr(e[0],e[1])});
-  html+='<div class="stats-title" style="margin-top:12px">Top States</div>';
+  html+='<div class="stats-title" style="margin-top:12px">Police Violence — Top States</div>';
   srt(byState).slice(0,5).forEach(function(e){html+=sr(e[0],e[1])});
   document.getElementById('statRows').innerHTML=html;
 }
 
 function srt(o){return Object.entries(o).sort(function(a,b){return b[1]-a[1]})}
-function sr(k,v){return '<div class="stat-row"><span class="k">'+esc(k)+'</span><span class="v">'+v.toLocaleString()+'</span></div>'}
+function sr(k,v){return'<div class="stat-row"><span class="k">'+esc(k)+'</span><span class="v">'+v.toLocaleString()+'</span></div>'}
 
 function showList(results){
   var max=200,shown=results.slice(0,max);
   document.getElementById('resultsHeader').textContent=
-    results.length<=max?results.length+' results':'Showing '+max+' of '+results.length.toLocaleString();
+    results.length<=max?results.length+' police violence results':'Showing '+max+' of '+results.length.toLocaleString();
   var html='';
   shown.forEach(function(r){
     html+='<div class="result-item" data-lat="'+r.latitude+'" data-lng="'+r.longitude+'">'+
@@ -425,12 +449,13 @@ document.getElementById('btnSearch').addEventListener('click',doSearch);
 document.getElementById('btnReset').addEventListener('click',function(){
   document.getElementById('searchBox').value='';
   ['fState','fYear','fRace','fCause','fEncounter','fArmed'].forEach(resetDD);
-  doSearch();
-  map.setView([39,-96],4);
+  document.getElementById('pvOn').checked=true;
+  document.getElementById('odOn').checked=true;
+  doSearch();map.setView([39,-96],4);
 });
 document.getElementById('searchBox').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch()});
-document.getElementById('toggleBtn').addEventListener('click',function(){
-  document.getElementById('panel').classList.toggle('collapsed');
-});
+document.getElementById('pvOn').addEventListener('change',doSearch);
+document.getElementById('odOn').addEventListener('change',doSearch);
+document.getElementById('toggleBtn').addEventListener('click',function(){document.getElementById('panel').classList.toggle('collapsed')});
 </script>
 </body></html>
