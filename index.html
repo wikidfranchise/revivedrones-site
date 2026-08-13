@@ -1,178 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-68QJ1KYMJW"></script>
-<script>
-window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-gtag("js",new Date());gtag("config","G-68QJ1KYMJW");
-</script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Revive Drones + T-Mobile</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background: #f4f4f4;
-      color: #333;
-    }
-    .hero-header {
-      width: 575px;
-      margin: 0 auto;
-      text-align: center;
-      padding: 2rem 0 1rem 0;
-      color: white;
-    }
-    .hero-header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-    header {
-      background: #060003;
-    }
-    .section {
-      padding: 2rem;
-      max-width: 1000px;
-      margin: auto;
-    }
-    .section::after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-    .section h2 {
-      text-align: center;
-      color: #060003;
-    }
-    .drone-box {
-      float: left;
-      width: 575px;
-      margin: -60px 2rem 2rem -175px;
-      box-shadow: 12px 12px 0 rgba(226, 0, 116, 0.15);
-      border-radius: 8px;
-      position: relative;
-      z-index: 1;
-    }
-    .drone-box img {
-      width: 100%;
-      display: block;
-      border-radius: 8px;
-    }
-    footer {
-      background: #222;
-      color: #aaa;
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-    }
-    blockquote {
-      font-style: italic;
-      margin-top: 2rem;
-      color: #444;
-      border-left: 4px solid #ccc;
-      padding-left: 1rem;
-    }
-    ul {
-      list-style: disc;
-      margin-left: 2rem;
-    }
-    .cta-button {
-      text-align: center;
-      margin-top: 2rem;
-    }
-    .cta-button a {
-      background: #007bff;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 5px;
-      text-decoration: none;
-    }
-    @media (max-width: 768px) {
-      .drone-box {
-        float: none;
-        width: 100%;
-        margin: 0 0 2rem 0;
-      }
-      .hero-header {
-        width: 100%;
-        padding: 2rem 1rem;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revive Drones — The Pecking Order · Air Traffic Management for The Low</title>
+<meta name="description" content="Revive Drones LLC — The Pecking Order: an authoritative traffic-management registry for the airspace below 500 feet. Patent pending.">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#05080f;--panel:#0a1018;--panel2:#0d1622;--line:#15202e;--cyan:#22d3ee;--cyan-dim:#0e7490;
+    --ink:#cde3ef;--ink-dim:#6b8398;--green:#34d399;--amber:#fbbf24;
+    --glow:0 0 12px rgba(34,211,238,.45);}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Mono',monospace;line-height:1.65;font-size:15.5px}
+  .wrap{max-width:880px;margin:0 auto;padding:0 22px}
+  h1,h2,h3,.brandfont{font-family:'Chakra Petch',sans-serif}
+  a{color:var(--cyan);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* header */
+  header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0b1320,#070c14)}
+  .hdr-in{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+  .brand{font-family:'Chakra Petch',sans-serif;font-weight:700;letter-spacing:2px;color:var(--cyan);text-shadow:var(--glow);font-size:19px}
+  .brand small{display:block;font-size:9px;letter-spacing:3px;color:var(--ink-dim);font-family:'IBM Plex Mono',monospace;text-shadow:none;margin-top:2px}
+  .hdr-cta{font-size:12px;letter-spacing:1px;border:1px solid var(--line);padding:8px 14px;border-radius:5px;color:var(--ink)}
+  .hdr-cta:hover{border-color:var(--cyan);color:var(--cyan);text-decoration:none}
+
+  /* hero */
+  .hero{padding:72px 0 56px;text-align:left}
+  .patent{display:inline-block;font-size:11px;letter-spacing:2.5px;color:var(--amber);border:1px solid rgba(251,191,36,.35);padding:5px 12px;border-radius:3px;margin-bottom:22px;text-transform:uppercase}
+  h1{font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 18px;color:#e8f4fb;font-weight:700}
+  h1 .cy{color:var(--cyan);text-shadow:var(--glow)}
+  .hero p.lede{font-size:clamp(15px,2.2vw,18px);color:var(--ink);max-width:640px;margin:0 0 30px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:1px;padding:12px 22px;border-radius:5px;border:1px solid var(--cyan);color:#04121a;background:var(--cyan);font-weight:600}
+  .btn:hover{text-decoration:none;box-shadow:var(--glow)}
+  .btn.ghost{background:transparent;color:var(--cyan)}
+
+  /* stat band */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:10px 0 0}
+  .stat{background:var(--panel);padding:20px 18px}
+  .stat .v{font-family:'Chakra Petch',sans-serif;font-size:26px;font-weight:700;color:var(--cyan)}
+  .stat .k{font-size:11px;letter-spacing:1.5px;color:var(--ink-dim);text-transform:uppercase;margin-top:4px}
+
+  /* sections */
+  section{padding:56px 0;border-top:1px solid var(--line)}
+  h2{font-size:13px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin:0 0 22px;font-weight:600}
+  h3{font-size:20px;color:#e8f4fb;margin:0 0 10px}
+  section p{max-width:680px;color:var(--ink)}
+  .dim{color:var(--ink-dim)}
+  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:8px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:22px}
+  .card h3{font-size:16px}
+  .card p{font-size:13.5px;margin-bottom:0}
+
+  /* demo strip */
+  .demo{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .demo .t{max-width:520px}
+  .demo h3{margin-bottom:6px}
+  .demo p{font-size:13px;margin:0}
+
+  footer{border-top:1px solid var(--line);padding:30px 0 40px;font-size:12px;color:var(--ink-dim)}
+  footer .frow{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  @media(max-width:600px){.hero{padding:48px 0 40px}}
+</style>
 </head>
 <body>
-  <header>
-    <div class="hero-header">
-      <h1>Revive Drones</h1>
-      <p>Powered by Innovation.</p>
-    </div>
-  </header>
 
-  <!-- DFR Life Saving Map Embed -->
-  <section style="position:relative;width:100%;height:500px;background:#0a0a10;border-bottom:3px solid #ff4466">
-    <iframe src="dfr-map.html" style="width:100%;height:100%;border:none" loading="lazy" title="DFR Life Saving Map"></iframe>
-    <div style="position:absolute;bottom:16px;right:16px;z-index:10">
-      <a href="dfr-map.html" target="_blank" style="background:#ff4466;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px;box-shadow:0 2px 12px rgba(255,68,102,.4)">Open Full Map ↗</a>
+<header>
+  <div class="wrap hdr-in">
+    <div class="brand">REVIVE DRONES<small>NATIONAL REGISTRAR OF THE LOW</small></div>
+    <a class="hdr-cta" href="mailto:john@revivedrones.com">CONTACT</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <span class="patent">Patent Pending · USPTO</span>
+    <h1>Air traffic control ends at 500 feet.<br><span class="cy">We are what's below it.</span></h1>
+    <p class="lede">The Pecking Order&trade; is an authoritative traffic-management registry for low-altitude airspace — identity, priority, and deconfliction for every aircraft operating in "The Low," from delivery drones to air ambulances.</p>
+    <div class="cta-row">
+      <a class="btn" href="mailto:john@revivedrones.com?subject=Demo%20Request">REQUEST A DEMO</a>
+      <a class="btn ghost" href="#system">HOW IT WORKS</a>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="v">0–500 ft</div><div class="k">The unmanaged stratum</div></div>
+    <div class="stat"><div class="v">900,000+</div><div class="k">Comments on FAA Part 108</div></div>
+    <div class="stat"><div class="v">3</div><div class="k">USPTO filings on record</div></div>
+    <div class="stat"><div class="v">LIVE</div><div class="k">Working reference build</div></div>
+  </div>
+
+  <section id="problem">
+    <h2>The Problem</h2>
+    <h3>The busiest new airspace in America has no referee.</h3>
+    <p>Below 500 feet, air ambulances, law-enforcement helicopters, commercial delivery drones, and recreational aircraft share the same sky with no surveillance, no separation service, and no way to give a medevac priority over a package. Radar doesn't reach down here. Traditional ATC was never built for it.</p>
+    <p>The FAA's pending Part 108 rulemaking — the largest in modern agency history by public response — will require exactly the capabilities that don't yet exist at scale: electronic conspicuity, automated deconfliction, and authoritative right-of-way.</p>
+  </section>
+
+  <section id="system">
+    <h2>The System</h2>
+    <h3>A neutral registry, run the way payment networks are run.</h3>
+    <p>The Pecking Order registers every cooperative aircraft in the managed airspace, gives each an identity and a priority, and deconflicts their routes before they ever launch. Life-critical operations — air ambulances, law enforcement, disaster response — automatically outrank commercial and recreational traffic.</p>
+    <div class="cols">
+      <div class="card"><h3>Authoritative</h3><p>One registry of record for identity, priority, and right-of-way in the managed sector — the enforcement layer the new rules contemplate.</p></div>
+      <div class="card"><h3>Neutral</h3><p>Like the payment networks, the registry operates no aircraft and competes with no operator. It authenticates, arbitrates, and records — nothing else.</p></div>
+      <div class="card"><h3>Resilient</h3><p>Satellite-native by design, so it works where terrestrial networks don't: rural, wilderness, tribal, and disaster-affected areas that need low-altitude aviation most.</p></div>
     </div>
   </section>
 
-  <section class="section" style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; gap: 2rem;">
-    <div class="drone-box" style="margin-right: 2rem; align-self: flex-end;">
-      <img src="./revivedronenaloxone.png" alt="Revive Drone Emergency Drop">
-    </div>
+  <section id="founder">
+    <h2>The Founder</h2>
+    <h3>Built by an architect who hit the wall himself.</h3>
+    <p>Revive Drones began as a drone venture — and its founder, a retired solutions architect with multiple issued U.S. patents in communications and data management, ran into what every operator below 500 feet runs into: nobody is managing anything. Eighteen months of design and engineering later, the system that should have existed does.</p>
+    <p class="dim">Patent applications on file with the USPTO. Non-provisional in final preparation with counsel review underway.</p>
+  </section>
 
-    </div><div style="flex: 1; min-width: 300px; align-self: flex-start;">
-<h2>About the Program</h2>
-    <p>
-      Revive Drones is a life-saving emergency drone delivery system designed to respond to opioid overdoses with Narcan deployment in real time. By texting a simple shortcode, witnesses or first responders can summon a drone to deliver the antidote within minutes. Drones can be autonomous and/or manned, depending on event.
-    </p>
-
-    <h2>Shortcode Activation</h2>
-    <p>
-      Users text <strong>REVIVE</strong> to <strong>"738483"</strong> — triggering immediate dispatch of a Narcan-equipped drone to the location. Drones can hover to assist as needed.
-    </p>
-
-    <p style="text-align: center; font-weight: 500; margin-top: 2rem;">
-      Future payloads will include EpiPens, insulin, and AEDs for rapid crisis response.
-    </p>
-
-    <h2>Why It Matters</h2>
-    <p>
-      The opioid crisis continues to claim over <strong>100,000 lives annually</strong> in the U.S. alone. Rural, underserved, and tribal communities are hit hardest — where emergency services are often 10–20 minutes away. Revive Drones brings that response time down to under 3 minutes.
-    </p>
-    <p>
-      This isn't just tech — it's a frontline intervention. Every minute saved in an overdose can be the difference between life and death.
-    </p>
-
-    <h2>How It Works</h2>
-    <ul>
-      <li>User texts <strong>REVIVE</strong> to shortcode</li>
-      <li>Location is GPS-tracked via device ping</li>
-      <li>Nearest drone is dispatched from Nightingale enclosure</li>
-      <li>Drone arrives, hovers, and drops Narcan with visual/audio prompts</li>
-      <li>First responders are auto-alerted if overdose is confirmed</li>
-    </ul>
-
-    </div></section>
-<section class="section" style="padding-top: 0;"><blockquote style="max-width: 800px; margin: 0 auto;">
-      “The first time I watched a drone deliver Narcan and save someone in real time, I knew this was bigger than a pilot program — this is the future of public health.”
-      <br>— John Johnson, Founder
-    </blockquote>
-
-    <div class="cta-button" style="text-align: center;">
-      <a href="https://www.revivedrones.com/dfr-map.html" target="_blank" style="background:#ff4466;margin-right:12px;">DFR Life Saving Map</a>
-      <a href="https://www.revivedrones.com/tribal" target="_blank">Contact Us for Tribal Deployment</a>
+  <section id="demo-s">
+    <h2>See It Running</h2>
+    <div class="demo">
+      <div class="t">
+        <h3>National operations map — live reference build</h3>
+        <p>A working demonstration of the national registrar console is available to qualified partners, counsel, and regulators on request. Best experienced on a desktop display.</p>
+      </div>
+      <a class="btn" href="mailto:john@revivedrones.com?subject=Reference%20Build%20Access">REQUEST ACCESS</a>
     </div>
   </section>
 
-  <footer>
-    &copy; 2025 Revive Drones. All rights reserved.
-    <div style="color: #fff; margin-top: 1rem; font-size: 0.85rem;">
-      Contact: <strong style="color: #00ffff;">John Johnson</strong><br>
-      Email: <a href="mailto:john@revivedrones.com" style="color: #00ffff;">john@revivedrones.com</a><br>
-      Phone: <a href="tel:9493728413" style="color: #00ffff;">949-372-8413</a>
-    </div>
-  </footer>
+</div>
+
+<footer>
+  <div class="wrap frow">
+    <span>© 2026 Revive Drones LLC · Foothill Ranch, California</span>
+    <span>john@revivedrones.com</span>
+    <span>The Pecking Order™ · Patent Pending</span>
+  </div>
+</footer>
+
 </body>
 </html>
